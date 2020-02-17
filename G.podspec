@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
   s.ios.deployment_target    = '10.0'
   s.tvos.deployment_target   = '10.0'
   s.name                     = "G"
-  s.version                  = "0.1"
+  s.version                  = "0.1.1"
   s.summary                  = "G is a Generic Grid (table/collection) system"
   s.requires_arc             = true
 
@@ -26,4 +26,3 @@ Pod::Spec.new do |s|
   s.swift_version = "5"
 
 end
-
