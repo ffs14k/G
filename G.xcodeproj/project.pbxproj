@@ -10,7 +10,7 @@
 		44674ACC23FA2D4E0047F187 /* G.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44674AC223FA2D4E0047F187 /* G.framework */; };
 		44674AD123FA2D4E0047F187 /* GTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44674AD023FA2D4E0047F187 /* GTests.swift */; };
 		44674AD323FA2D4E0047F187 /* G.h in Headers */ = {isa = PBXBuildFile; fileRef = 44674AC523FA2D4E0047F187 /* G.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		44674ADF23FA2F770047F187 /* GridSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44674ADE23FA2F770047F187 /* GridSource.swift */; };
+		44674BC423FAFC560047F187 /* InitialFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44674BC323FAFC560047F187 /* InitialFile.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,7 +30,7 @@
 		44674ACB23FA2D4E0047F187 /* GTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		44674AD023FA2D4E0047F187 /* GTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GTests.swift; sourceTree = "<group>"; };
 		44674AD223FA2D4E0047F187 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		44674ADE23FA2F770047F187 /* GridSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridSource.swift; sourceTree = "<group>"; };
+		44674BC323FAFC560047F187 /* InitialFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialFile.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,7 +73,7 @@
 		44674AC423FA2D4E0047F187 /* G */ = {
 			isa = PBXGroup;
 			children = (
-				44674ADC23FA2F5D0047F187 /* Sources */,
+				44674BC523FAFC5A0047F187 /* Sources */,
 				44674AC523FA2D4E0047F187 /* G.h */,
 				44674AC623FA2D4E0047F187 /* Info.plist */,
 			);
@@ -89,20 +89,12 @@
 			path = GTests;
 			sourceTree = "<group>";
 		};
-		44674ADC23FA2F5D0047F187 /* Sources */ = {
+		44674BC523FAFC5A0047F187 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				44674ADD23FA2F680047F187 /* GridSource */,
+				44674BC323FAFC560047F187 /* InitialFile.swift */,
 			);
 			path = Sources;
-			sourceTree = "<group>";
-		};
-		44674ADD23FA2F680047F187 /* GridSource */ = {
-			isa = PBXGroup;
-			children = (
-				44674ADE23FA2F770047F187 /* GridSource.swift */,
-			);
-			path = GridSource;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -215,7 +207,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				44674ADF23FA2F770047F187 /* GridSource.swift in Sources */,
+				44674BC423FAFC560047F187 /* InitialFile.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

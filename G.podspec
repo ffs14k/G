@@ -3,15 +3,15 @@ Pod::Spec.new do |s|
   s.ios.deployment_target    = '10.0'
   s.tvos.deployment_target   = '10.0'
   s.name                     = "G"
-  s.version                  = "0.1.1"
-  s.summary                  = "G is a Generic Grid (table/collection) system"
+  s.version                  = "0.1.2"
+  s.summary                  = "Generic Grid |table/collection| system"
   s.requires_arc             = true
 
   s.description  = <<-DESC
-  G is a Generic Grid (table/collection) system which. Version for iOS/TVOS.
+  Generic Grid |table/collection| system which. Version for iOS/TVOS.
                    DESC
 
-  s.homepage     = "https://github.com/FinchMoscow/FNetworkService"
+  s.homepage     = "https://github.com/ffs14k/G"
 
   s.license      = { :type => "MIT", :file => "LICENSE" }
 
@@ -19,9 +19,7 @@ Pod::Spec.new do |s|
 
   s.source       = { :git => "https://github.com/ffs14k/G.git", :tag => "#{s.version}" }
 
-  s.source_files = "G/**/*.{swift}"
-
-  s.exclude_files = "GTests/"
+  s.source_files = "G/Sources/**/*.{swift}"
 
   s.swift_version = "5"
 
