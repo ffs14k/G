@@ -38,6 +38,13 @@
 			remoteGlobalIDString = 44674AC123FA2D4E0047F187;
 			remoteInfo = G;
 		};
+		4486B2B22415773F00306926 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4486B2AE2415773D00306926 /* GExample.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4486B2972415773800306926;
+			remoteInfo = GExample;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +72,7 @@
 		4486B2862414359700306926 /* GridSourceInsertTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridSourceInsertTests.swift; sourceTree = "<group>"; };
 		4486B28824147FC500306926 /* GridSourceReloadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridSourceReloadTests.swift; sourceTree = "<group>"; };
 		4486B28A2415493700306926 /* GridSourceRemoveTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridSourceRemoveTests.swift; sourceTree = "<group>"; };
+		4486B2AE2415773D00306926 /* GExample.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GExample.xcodeproj; path = GExample/GExample.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +97,7 @@
 		44674AB823FA2D4E0047F187 = {
 			isa = PBXGroup;
 			children = (
+				4486B2AE2415773D00306926 /* GExample.xcodeproj */,
 				44674AC423FA2D4E0047F187 /* G */,
 				44674ACF23FA2D4E0047F187 /* GTests */,
 				44674AC323FA2D4E0047F187 /* Products */,
@@ -196,6 +205,14 @@
 			path = Example;
 			sourceTree = "<group>";
 		};
+		4486B2AF2415773D00306926 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4486B2B32415773F00306926 /* GExample.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -276,6 +293,12 @@
 			mainGroup = 44674AB823FA2D4E0047F187;
 			productRefGroup = 44674AC323FA2D4E0047F187 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 4486B2AF2415773D00306926 /* Products */;
+					ProjectRef = 4486B2AE2415773D00306926 /* GExample.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				44674AC123FA2D4E0047F187 /* G */,
@@ -283,6 +306,16 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		4486B2B32415773F00306926 /* GExample.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = GExample.app;
+			remoteRef = 4486B2B22415773F00306926 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		44674AC023FA2D4E0047F187 /* Resources */ = {

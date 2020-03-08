@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol GridSourceProtocol: AnyObject {
+public protocol GridSourceProtocol: AnyObject {
     
     var sectionsCount: Int { get }
     
@@ -23,6 +23,8 @@ protocol GridSourceProtocol: AnyObject {
     func items(section: Int) -> [GCIndexPathable]
     
     func item(section: Int, item: Int) -> GCIndexPathable
+    
+    func reloadData(sections: [GridSection])
     
     func appendSections(_ sections: [GridSection]) -> Range<Int>
     
@@ -54,7 +56,7 @@ protocol GridSourceProtocol: AnyObject {
     
 }
 
-enum GridSourceMatchPattern {
+public enum GridSourceMatchPattern {
     
     case startWithIndex(_ index: Int)
     case matchIndexes(_ indexes: [Int])

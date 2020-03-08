@@ -8,15 +8,17 @@
 
 import Foundation
 
-final class GridSource: GridSourceProtocol {
+public final class GridSource: GridSourceProtocol {
     
     private var sections: [Int: GridSection] = [:]
+    
+    public init() { }
     
 }
 
 
 // MARK: - Getter
-extension GridSource {
+public extension GridSource {
     
     var sectionsCount: Int {
         return sections.count
@@ -50,7 +52,12 @@ extension GridSource {
 
 
 // MARK: - Section setter
-extension GridSource {
+public extension GridSource {
+    
+    func reloadData(sections: [GridSection]) {
+        self.sections.removeAll()
+        _ = appendSections(sections)
+    }
     
     func appendSections(_ sections: [GridSection]) -> Range<Int> {
         let appendRange = (self.sections.count..<self.sections.count + sections.count)
@@ -96,7 +103,7 @@ extension GridSource {
 
 
 // MARK: - Items setter
-extension GridSource {
+public extension GridSource {
     
     func appendItems(_ items: [GCIndexPathable], section: Int) -> [IndexPath] {
         

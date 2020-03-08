@@ -8,7 +8,7 @@
 
 import UIKit
 
-enum GridReloadAnimatorFactory {
+public enum GridReloadAnimatorFactory {
     
     case`default`(itemDelay: TimeInterval, animator: GridReloadAnimator)
     case custom(animatorManager: GridReloadAnimatorManager)
@@ -27,7 +27,7 @@ enum GridReloadAnimatorFactory {
 
 
 // MARK: - Predefined animators
-extension GridReloadAnimatorFactory {
+public extension GridReloadAnimatorFactory {
     
     static func bottom(itemDelay: TimeInterval = 0.09,
                        duration: TimeInterval = 0.6,

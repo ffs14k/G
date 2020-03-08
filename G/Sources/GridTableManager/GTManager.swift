@@ -8,25 +8,21 @@
 
 import UIKit
 
-protocol GTPresentable: AnyObject {
-    var gridManager: GTManagerProtocol { get }
-}
-
-protocol GTManagerProtocol {
+public protocol GTManagerProtocol {
     
     typealias Animation = UITableView.RowAnimation
     
     var sectionsCount: Int { get }
     
-    func cellsCount(section: Int) -> Int?
+    func cellsCount(for section: Int) -> Int?
     
-    func header(section: Int) -> GTManagerCell?
+    func header(for section: Int) -> GTManagerCell?
     
-    func footer(section: Int) -> GTManagerCell?
+    func footer(for section: Int) -> GTManagerCell?
     
-    func cells(section: Int) -> [GTManagerCell]
+    func cells(for section: Int) -> [GTManagerCell]
     
-    func cell(section: Int, index: Int) -> GTManagerCell
+    func cell(for section: Int, at index: Int) -> GTManagerCell
     
     func reloadData(sections: [GridSection], animator: GridReloadAnimatorFactory?)
     
@@ -56,23 +52,23 @@ protocol GTManagerProtocol {
     
 }
 
-extension GTManagerProtocol {
+public extension GTManagerProtocol {
     
     func cell(indexPath: IndexPath) -> GTManagerCell {
-        return cell(section: indexPath.section, index: indexPath.item)
+        return cell(for: indexPath.section, at: indexPath.item)
     }
     
 }
 
-final class GTManager: GTManagerProtocol {
+public final class GTManager: GTManagerProtocol {
     
-    unowned var tableView: UITableView!
+    public unowned var tableView: UITableView!
     
     private let sizeProvider: GTCSizeProvider
     private let gridSource: GridSourceProtocol
     private var reloadAnimator: GridReloadAnimatorManager?
     
-    init(gridSource: GridSourceProtocol = GridSource(),
+    public init(gridSource: GridSourceProtocol = GridSource(),
         sizeProvider: GTCSizeProvider = GTCSizeProviderImp())
     {
         self.gridSource = gridSource
@@ -82,48 +78,48 @@ final class GTManager: GTManagerProtocol {
     // MARK: - Public methods that should be used inside View Contoller
     
     // cell
-    func cellSize(forIndexPath indexPath: IndexPath, in rect: CGRect) -> CGSize {
+    public func cellSize(forIndexPath indexPath: IndexPath, in rect: CGRect) -> CGSize {
         return cell(indexPath: indexPath).size(in: rect, sizeProvider: sizeProvider)
     }
     
-    func configureCell(forIndexPath indexPath: IndexPath) -> UITableViewCell {
+    public func configureCell(forIndexPath indexPath: IndexPath) -> UITableViewCell {
         return cell(indexPath: indexPath).configureCell(tableView)
     }
     
     // header
-    func headerSize(forSection section: Int, in rect: CGRect) -> CGSize {
-        return header(section: section)?.size(in: rect, sizeProvider: sizeProvider) ?? .zero
+    public func headerSize(forSection section: Int, in rect: CGRect) -> CGSize {
+        return header(for: section)?.size(in: rect, sizeProvider: sizeProvider) ?? .zero
     }
     
-    func configureHeader(forSection section: Int) -> UITableViewHeaderFooterView? {
-        guard let header = header(section: section) else { return nil }
+    public func configureHeader(forSection section: Int) -> UITableViewHeaderFooterView? {
+        guard let header = header(for: section) else { return nil }
         let inTableHeader = tableView.headerView(forSection: section)
         return header.configureHeaderFooter(inTableHeader)
     }
     
     // footer
-    func footerSize(forSection section: Int, in rect: CGRect) -> CGSize {
-        return footer(section: section)?.size(in: rect, sizeProvider: sizeProvider) ?? .zero
+    public func footerSize(forSection section: Int, in rect: CGRect) -> CGSize {
+        return footer(for: section)?.size(in: rect, sizeProvider: sizeProvider) ?? .zero
     }
     
-    func configureFooter(forSection section: Int) -> UITableViewHeaderFooterView? {
-        guard let footer = footer(section: section) else { return nil }
+    public func configureFooter(forSection section: Int) -> UITableViewHeaderFooterView? {
+        guard let footer = footer(for: section) else { return nil }
         let inTableFooter = tableView.footerView(forSection: section)
         return footer.configureHeaderFooter(inTableFooter)
     }
     
     // Raw reload animator
-    func willDisplayCell(_ cell: UITableViewCell, section: Int, gridRect: CGRect = .zero) {
+    public func willDisplayCell(_ cell: UITableViewCell, section: Int, gridRect: CGRect = .zero) {
         let rect = gridRect == .zero ? tableView.frame : gridRect
         reloadAnimator?.willDisplay(cell, type: .cell, section: section, gridRect: rect)
     }
     
-    func willDisplayHeader(_ header: UIView, section: Int, gridRect: CGRect = .zero) {
+    public func willDisplayHeader(_ header: UIView, section: Int, gridRect: CGRect = .zero) {
         let rect = gridRect == .zero ? tableView.frame : gridRect
         reloadAnimator?.willDisplay(header, type: .header, section: section, gridRect: rect)
     }
     
-    func willDisplayFooter(_ footer: UIView, section: Int, gridRect: CGRect = .zero) {
+    public func willDisplayFooter(_ footer: UIView, section: Int, gridRect: CGRect = .zero) {
         let rect = gridRect == .zero ? tableView.frame : gridRect
         reloadAnimator?.willDisplay(footer, type: .footer, section: section, gridRect: rect)
     }
@@ -132,31 +128,31 @@ final class GTManager: GTManagerProtocol {
 
 
 // MARK: - GTManagerProtocol Methods
-extension GTManager {
+public extension GTManager {
     
     var sectionsCount: Int {
         return gridSource.sectionsCount
     }
     
-    func cellsCount(section: Int) -> Int? {
+    func cellsCount(for section: Int) -> Int? {
         return gridSource.itemsCount(section: section)
     }
     
-    func header(section: Int) -> GTManagerCell? {
+    func header(for section: Int) -> GTManagerCell? {
         guard let header = gridSource.headerItem(section: section) else { return nil }
         return (header as! GTManagerCell)
     }
     
-    func footer(section: Int) -> GTManagerCell? {
+    func footer(for section: Int) -> GTManagerCell? {
         guard let footer = gridSource.footerItem(section: section) else { return nil }
         return (footer as! GTManagerCell)
     }
     
-    func cells(section: Int) -> [GTManagerCell] {
+    func cells(for section: Int) -> [GTManagerCell] {
         return gridSource.items(section: section) as! [GTManagerCell]
     }
     
-    func cell(section: Int, index: Int) -> GTManagerCell {
+    func cell(for section: Int, at index: Int) -> GTManagerCell {
         return gridSource.item(section: section, item: index) as! GTManagerCell
     }
     
@@ -172,6 +168,7 @@ extension GTManager {
             }
         }
         
+        gridSource.reloadData(sections: sections)
         reloadAnimator = animator?.animatorManager
         reloadAnimator?.animatorReleaser = self
         
@@ -234,7 +231,7 @@ extension GTManager {
             return
         }
         
-        _ = self.header(section: section)!.configureHeaderFooter(headerView)
+        _ = self.header(for: section)!.configureHeaderFooter(headerView)
     }
     
     func updateFooter(_ footer: GTCellProvider, section: Int, animation: Animation?) {
@@ -248,7 +245,7 @@ extension GTManager {
             return
         }
         
-        _ = self.footer(section: section)!.configureHeaderFooter(footerView)
+        _ = self.footer(for: section)!.configureHeaderFooter(footerView)
     }
     
 }
@@ -257,7 +254,7 @@ extension GTManager {
 // MARK: - GridReloadAnimatorManagerReleaser
 extension GTManager: GridReloadAnimatorManagerReleaser {
     
-    func releaseAnimatorManager() {
+    public func releaseAnimatorManager() {
         reloadAnimator = nil
     }
     

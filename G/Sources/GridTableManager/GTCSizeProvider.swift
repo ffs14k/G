@@ -8,18 +8,20 @@
 
 import UIKit
 
-protocol GTCSizeProvider: AnyObject {
+public protocol GTCSizeProvider: AnyObject {
     
     func size<S: GTCSetupable>(in rect: CGRect, gtcModel: GTCellModel<S>) -> CGSize
     
 }
 
-final class GTCSizeProviderImp: GTCSizeProvider {
+public final class GTCSizeProviderImp: GTCSizeProvider {
     
     private var prototypeCells: [String: AnyObject] = [:]
     private var sizeCache: [GCIndexPath: CGSize] = [:]
     
-    func size<S: GTCSetupable>(in rect: CGRect, gtcModel: GTCellModel<S>) -> CGSize {
+    public init() { }
+    
+    public func size<S: GTCSetupable>(in rect: CGRect, gtcModel: GTCellModel<S>) -> CGSize {
         
         let identifier = S.className
         
@@ -31,7 +33,7 @@ final class GTCSizeProviderImp: GTCSizeProvider {
             
             (prototypeCells[identifier] as! S).setup(gtcModel: gtcModel)
             
-            let size = (prototypeCells[identifier] as! S).size(in: rect, gtcModel: gtcModel)
+            let size = (prototypeCells[identifier] as! S).size(in: rect, model: gtcModel.model)
             
             sizeCache.updateValue(size, forKey: gtcModel.gcIndexPath)
             

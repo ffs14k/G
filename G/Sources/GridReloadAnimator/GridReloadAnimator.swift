@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol GridReloadAnimator {
+public protocol GridReloadAnimator {
     
     func animate(_ cell: UIView, delay: TimeInterval, gridRect: CGRect)
     

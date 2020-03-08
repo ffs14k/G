@@ -9,7 +9,7 @@
 import UIKit
 
 // Grid Table Cell
-protocol GTCSetupable: GTCSetupableCreator {
+public protocol GTCSetupable: GTCSetupableCreator {
     
     associatedtype Model
     
@@ -17,7 +17,7 @@ protocol GTCSetupable: GTCSetupableCreator {
     
     func setup(model: Model)
     
-    func size(in rect: CGRect, gtcModel: GTCellModel<Self>) -> CGSize
+    func size(in rect: CGRect, model: Model) -> CGSize
     
 }
 

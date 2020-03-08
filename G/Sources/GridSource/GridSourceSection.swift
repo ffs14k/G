@@ -6,7 +6,7 @@
 //  Copyright © 2020 Eugene. All rights reserved.
 //
 
-struct GridSection {
+public struct GridSection {
     
     var headerItem: GCIndexPathable?
     var items: [GCIndexPathable]
@@ -14,7 +14,7 @@ struct GridSection {
     
 }
 
-extension GridSection {
+public extension GridSection {
     
     init(header: GTCellProvider? = nil,
          cells: [GTCellProvider] = [],

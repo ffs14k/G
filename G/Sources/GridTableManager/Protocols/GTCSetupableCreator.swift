@@ -8,14 +8,14 @@
 
 import UIKit
 
-protocol GTCSetupableCreator where Self: UIView {
+public protocol GTCSetupableCreator where Self: UIView {
     
     static func createSelf() -> Self
     static func create<Setupable: GTCSetupable>() -> Setupable
     
 }
 
-extension GTCSetupableCreator where Self: UITableViewCell {
+public extension GTCSetupableCreator where Self: UITableViewCell {
     
     static func create<Setupable: GTCSetupable>() -> Setupable {
         return createSelf() as! Setupable
@@ -23,7 +23,7 @@ extension GTCSetupableCreator where Self: UITableViewCell {
     
 }
 
-extension GTCSetupableCreator where Self: UITableViewHeaderFooterView {
+public extension GTCSetupableCreator where Self: UITableViewHeaderFooterView {
     
     static func create<Setupable: GTCSetupable>() -> Setupable {
         return createSelf() as! Setupable

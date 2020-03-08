@@ -9,7 +9,7 @@
 import UIKit
 
 // Grid Table Cell
-protocol GTCConfigurator {
+public protocol GTCConfigurator {
     
     func size(in rect: CGRect, sizeProvider: GTCSizeProvider) -> CGSize
     

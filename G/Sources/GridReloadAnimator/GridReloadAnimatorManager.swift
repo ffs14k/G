@@ -8,11 +8,11 @@
 
 import UIKit
 
-protocol GridReloadAnimatorManagerReleaser: AnyObject {
+public protocol GridReloadAnimatorManagerReleaser: AnyObject {
     func releaseAnimatorManager()
 }
 
-protocol GridReloadAnimatorManager: AnyObject {
+public protocol GridReloadAnimatorManager: AnyObject {
 
     var animator: GridReloadAnimator { get }
     var animatorReleaser: GridReloadAnimatorManagerReleaser? { get set }
@@ -21,12 +21,12 @@ protocol GridReloadAnimatorManager: AnyObject {
     func handleCellsAnimation()
 }
 
-class GridReloadAnimatorManagerImp: GridReloadAnimatorManager {
+open class GridReloadAnimatorManagerImp: GridReloadAnimatorManager {
 
     // MARK: - Properties
 
-    weak var animatorReleaser: GridReloadAnimatorManagerReleaser?
-    let animator: GridReloadAnimator
+    public weak var animatorReleaser: GridReloadAnimatorManagerReleaser?
+    public let animator: GridReloadAnimator
 
     let itemDelay: TimeInterval
     private(set) var sections: [Int: Section] = [:]
@@ -43,7 +43,7 @@ class GridReloadAnimatorManagerImp: GridReloadAnimatorManager {
 
     // MARK: - Public methods
     
-    func willDisplay(_ cell: UIView, type: GCIndexPath.CellType, section: Int, gridRect: CGRect) {
+    public func willDisplay(_ cell: UIView, type: GCIndexPath.CellType, section: Int, gridRect: CGRect) {
         
         self.gridRect = gridRect
         
@@ -64,7 +64,7 @@ class GridReloadAnimatorManagerImp: GridReloadAnimatorManager {
         
     }
     
-    func handleCellsAnimation() {
+    open func handleCellsAnimation() {
         
         var headerDelay: TimeInterval = 0
         var cellDelay: TimeInterval = 0
@@ -80,7 +80,6 @@ class GridReloadAnimatorManagerImp: GridReloadAnimatorManager {
             
             section.cells.forEach({ cell in
                 cellDelay += itemDelay
-                print(cellDelay)
                 animator.animate(cell, delay: cellDelay, gridRect: gridRect)
             })
             
@@ -90,7 +89,6 @@ class GridReloadAnimatorManagerImp: GridReloadAnimatorManager {
                 animator.animate(footer, delay: footerDelay, gridRect: gridRect)
             }
             
-            print(headerDelay, footerDelay)
             headerDelay = footerDelay
             
         }
@@ -101,7 +99,7 @@ class GridReloadAnimatorManagerImp: GridReloadAnimatorManager {
 
 }
 
-extension GridReloadAnimatorManagerImp {
+public extension GridReloadAnimatorManagerImp {
     
     struct Section {
         var header: UIView?

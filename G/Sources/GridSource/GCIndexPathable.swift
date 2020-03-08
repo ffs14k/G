@@ -9,7 +9,7 @@
 import Foundation
 
 // Grid Cell
-protocol GCIndexPathable {
+public protocol GCIndexPathable {
     
     var gcIndexPath: GCIndexPath { get set }
     
@@ -23,12 +23,6 @@ extension GCIndexPathable {
     
     mutating func update(_ gcIndexPath: GCIndexPath) {
         self.gcIndexPath = gcIndexPath
-    }
-    
-    func copy(newIndexPath: IndexPath) -> Self {
-        var object = self
-        object.gcIndexPath.indexPath = newIndexPath
-        return object
     }
     
     func copy(type: GCIndexPath.CellType, newIndexPath: IndexPath) -> Self {
@@ -47,12 +41,12 @@ extension GCIndexPathable {
 
 
 // Grid Cell
-struct GCIndexPath: Hashable {
+public struct GCIndexPath: Hashable {
     
     let cellType: CellType
     var indexPath: IndexPath
     
-    enum CellType: UInt8 {
+    public enum CellType: UInt8 {
         case header
         case cell
         case footer
