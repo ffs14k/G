@@ -10,7 +10,24 @@
 		44674ACC23FA2D4E0047F187 /* G.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44674AC223FA2D4E0047F187 /* G.framework */; };
 		44674AD123FA2D4E0047F187 /* GTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44674AD023FA2D4E0047F187 /* GTests.swift */; };
 		44674AD323FA2D4E0047F187 /* G.h in Headers */ = {isa = PBXBuildFile; fileRef = 44674AC523FA2D4E0047F187 /* G.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		44674BC423FAFC560047F187 /* InitialFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44674BC323FAFC560047F187 /* InitialFile.swift */; };
+		44674BC823FB04EC0047F187 /* GridSourceSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44674BC723FB04EC0047F187 /* GridSourceSection.swift */; };
+		44674BCA23FB058B0047F187 /* GCIndexPathable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44674BC923FB058B0047F187 /* GCIndexPathable.swift */; };
+		44674BCD23FB07320047F187 /* GTCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44674BCC23FB07320047F187 /* GTCellModel.swift */; };
+		44674BD023FB07930047F187 /* GTCSetupable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44674BCF23FB07930047F187 /* GTCSetupable.swift */; };
+		44674BD223FB07A70047F187 /* GTCConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44674BD123FB07A70047F187 /* GTCConfigurator.swift */; };
+		44674BD423FB07BE0047F187 /* GTCSetupableCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44674BD323FB07BE0047F187 /* GTCSetupableCreator.swift */; };
+		44674BD623FB07F10047F187 /* GTCSizeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44674BD523FB07F10047F187 /* GTCSizeProvider.swift */; };
+		44674BD823FB09E50047F187 /* GridSourceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44674BD723FB09E50047F187 /* GridSourceProtocol.swift */; };
+		44674BDA23FB0A220047F187 /* GridSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44674BD923FB0A220047F187 /* GridSource.swift */; };
+		44674BDC23FB468F0047F187 /* ClassNameIdentified.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44674BDB23FB468F0047F187 /* ClassNameIdentified.swift */; };
+		44674BE423FC95410047F187 /* GTManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44674BE323FC95410047F187 /* GTManager.swift */; };
+		44674BEA23FCA2BE0047F187 /* GridReloadAnimatorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44674BE923FCA2BE0047F187 /* GridReloadAnimatorManager.swift */; };
+		44674BEC23FCA3010047F187 /* GridReloadAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44674BEB23FCA3010047F187 /* GridReloadAnimator.swift */; };
+		44674BEE23FCA3210047F187 /* GridReloadAnimatorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44674BED23FCA3210047F187 /* GridReloadAnimatorFactory.swift */; };
+		4486B28524142D5200306926 /* GridSourceAppendTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4486B28424142D5200306926 /* GridSourceAppendTests.swift */; };
+		4486B2872414359700306926 /* GridSourceInsertTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4486B2862414359700306926 /* GridSourceInsertTests.swift */; };
+		4486B28924147FC500306926 /* GridSourceReloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4486B28824147FC500306926 /* GridSourceReloadTests.swift */; };
+		4486B28B2415493700306926 /* GridSourceRemoveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4486B28A2415493700306926 /* GridSourceRemoveTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,7 +47,24 @@
 		44674ACB23FA2D4E0047F187 /* GTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		44674AD023FA2D4E0047F187 /* GTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GTests.swift; sourceTree = "<group>"; };
 		44674AD223FA2D4E0047F187 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		44674BC323FAFC560047F187 /* InitialFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialFile.swift; sourceTree = "<group>"; };
+		44674BC723FB04EC0047F187 /* GridSourceSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridSourceSection.swift; sourceTree = "<group>"; };
+		44674BC923FB058B0047F187 /* GCIndexPathable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCIndexPathable.swift; sourceTree = "<group>"; };
+		44674BCC23FB07320047F187 /* GTCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GTCellModel.swift; sourceTree = "<group>"; };
+		44674BCF23FB07930047F187 /* GTCSetupable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GTCSetupable.swift; sourceTree = "<group>"; };
+		44674BD123FB07A70047F187 /* GTCConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GTCConfigurator.swift; sourceTree = "<group>"; };
+		44674BD323FB07BE0047F187 /* GTCSetupableCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GTCSetupableCreator.swift; sourceTree = "<group>"; };
+		44674BD523FB07F10047F187 /* GTCSizeProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GTCSizeProvider.swift; sourceTree = "<group>"; };
+		44674BD723FB09E50047F187 /* GridSourceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridSourceProtocol.swift; sourceTree = "<group>"; };
+		44674BD923FB0A220047F187 /* GridSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridSource.swift; sourceTree = "<group>"; };
+		44674BDB23FB468F0047F187 /* ClassNameIdentified.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassNameIdentified.swift; sourceTree = "<group>"; };
+		44674BE323FC95410047F187 /* GTManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GTManager.swift; sourceTree = "<group>"; };
+		44674BE923FCA2BE0047F187 /* GridReloadAnimatorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridReloadAnimatorManager.swift; sourceTree = "<group>"; };
+		44674BEB23FCA3010047F187 /* GridReloadAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridReloadAnimator.swift; sourceTree = "<group>"; };
+		44674BED23FCA3210047F187 /* GridReloadAnimatorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridReloadAnimatorFactory.swift; sourceTree = "<group>"; };
+		4486B28424142D5200306926 /* GridSourceAppendTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridSourceAppendTests.swift; sourceTree = "<group>"; };
+		4486B2862414359700306926 /* GridSourceInsertTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridSourceInsertTests.swift; sourceTree = "<group>"; };
+		4486B28824147FC500306926 /* GridSourceReloadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridSourceReloadTests.swift; sourceTree = "<group>"; };
+		4486B28A2415493700306926 /* GridSourceRemoveTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridSourceRemoveTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +107,7 @@
 		44674AC423FA2D4E0047F187 /* G */ = {
 			isa = PBXGroup;
 			children = (
+				4486B28D24155FFA00306926 /* Example */,
 				44674BC523FAFC5A0047F187 /* Sources */,
 				44674AC523FA2D4E0047F187 /* G.h */,
 				44674AC623FA2D4E0047F187 /* Info.plist */,
@@ -83,6 +118,10 @@
 		44674ACF23FA2D4E0047F187 /* GTests */ = {
 			isa = PBXGroup;
 			children = (
+				4486B28424142D5200306926 /* GridSourceAppendTests.swift */,
+				4486B2862414359700306926 /* GridSourceInsertTests.swift */,
+				4486B28824147FC500306926 /* GridSourceReloadTests.swift */,
+				4486B28A2415493700306926 /* GridSourceRemoveTests.swift */,
 				44674AD023FA2D4E0047F187 /* GTests.swift */,
 				44674AD223FA2D4E0047F187 /* Info.plist */,
 			);
@@ -92,9 +131,69 @@
 		44674BC523FAFC5A0047F187 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				44674BC323FAFC560047F187 /* InitialFile.swift */,
+				44674BE823FCA2A80047F187 /* GridReloadAnimator */,
+				44674BDD23FB46B70047F187 /* Common */,
+				44674BC623FB04610047F187 /* GridSource */,
+				44674BCB23FB06FE0047F187 /* GridTableManager */,
 			);
 			path = Sources;
+			sourceTree = "<group>";
+		};
+		44674BC623FB04610047F187 /* GridSource */ = {
+			isa = PBXGroup;
+			children = (
+				44674BC723FB04EC0047F187 /* GridSourceSection.swift */,
+				44674BC923FB058B0047F187 /* GCIndexPathable.swift */,
+				44674BD723FB09E50047F187 /* GridSourceProtocol.swift */,
+				44674BD923FB0A220047F187 /* GridSource.swift */,
+			);
+			path = GridSource;
+			sourceTree = "<group>";
+		};
+		44674BCB23FB06FE0047F187 /* GridTableManager */ = {
+			isa = PBXGroup;
+			children = (
+				44674BCE23FB07860047F187 /* Protocols */,
+				44674BD523FB07F10047F187 /* GTCSizeProvider.swift */,
+				44674BCC23FB07320047F187 /* GTCellModel.swift */,
+				44674BE323FC95410047F187 /* GTManager.swift */,
+			);
+			path = GridTableManager;
+			sourceTree = "<group>";
+		};
+		44674BCE23FB07860047F187 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				44674BCF23FB07930047F187 /* GTCSetupable.swift */,
+				44674BD123FB07A70047F187 /* GTCConfigurator.swift */,
+				44674BD323FB07BE0047F187 /* GTCSetupableCreator.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		44674BDD23FB46B70047F187 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				44674BDB23FB468F0047F187 /* ClassNameIdentified.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		44674BE823FCA2A80047F187 /* GridReloadAnimator */ = {
+			isa = PBXGroup;
+			children = (
+				44674BE923FCA2BE0047F187 /* GridReloadAnimatorManager.swift */,
+				44674BEB23FCA3010047F187 /* GridReloadAnimator.swift */,
+				44674BED23FCA3210047F187 /* GridReloadAnimatorFactory.swift */,
+			);
+			path = GridReloadAnimator;
+			sourceTree = "<group>";
+		};
+		4486B28D24155FFA00306926 /* Example */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Example;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -207,7 +306,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				44674BC423FAFC560047F187 /* InitialFile.swift in Sources */,
+				44674BD023FB07930047F187 /* GTCSetupable.swift in Sources */,
+				44674BEA23FCA2BE0047F187 /* GridReloadAnimatorManager.swift in Sources */,
+				44674BDA23FB0A220047F187 /* GridSource.swift in Sources */,
+				44674BD423FB07BE0047F187 /* GTCSetupableCreator.swift in Sources */,
+				44674BC823FB04EC0047F187 /* GridSourceSection.swift in Sources */,
+				44674BCD23FB07320047F187 /* GTCellModel.swift in Sources */,
+				44674BD823FB09E50047F187 /* GridSourceProtocol.swift in Sources */,
+				44674BE423FC95410047F187 /* GTManager.swift in Sources */,
+				44674BEC23FCA3010047F187 /* GridReloadAnimator.swift in Sources */,
+				44674BD223FB07A70047F187 /* GTCConfigurator.swift in Sources */,
+				44674BD623FB07F10047F187 /* GTCSizeProvider.swift in Sources */,
+				44674BDC23FB468F0047F187 /* ClassNameIdentified.swift in Sources */,
+				44674BEE23FCA3210047F187 /* GridReloadAnimatorFactory.swift in Sources */,
+				44674BCA23FB058B0047F187 /* GCIndexPathable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -215,6 +327,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4486B2872414359700306926 /* GridSourceInsertTests.swift in Sources */,
+				4486B28B2415493700306926 /* GridSourceRemoveTests.swift in Sources */,
+				4486B28924147FC500306926 /* GridSourceReloadTests.swift in Sources */,
+				4486B28524142D5200306926 /* GridSourceAppendTests.swift in Sources */,
 				44674AD123FA2D4E0047F187 /* GTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
