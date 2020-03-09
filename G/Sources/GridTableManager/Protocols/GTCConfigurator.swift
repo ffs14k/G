@@ -17,4 +17,5 @@ public protocol GTCConfigurator {
     
     func configureHeaderFooter(_ headerFooterView: UITableViewHeaderFooterView?) -> UITableViewHeaderFooterView
     
+    func updateIndexPath(_ cell: UITableViewCell)
 }

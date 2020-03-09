@@ -75,4 +75,8 @@ public struct GTCellModel<Modelable: GTCSetupable>: GTManagerCell {
         return cell as! UITableViewCell
     }
     
+    public func updateIndexPath(_ cell: UITableViewCell) {
+        (cell as! Modelable).gtcModel!.updateIndexPath(indexPath)
+    }
+    
 }

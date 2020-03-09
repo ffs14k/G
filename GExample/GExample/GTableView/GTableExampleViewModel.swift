@@ -18,7 +18,6 @@ protocol GTableExampleViewModelInput: AnyObject {
 
 final class GTableExampleViewModel {
     
-    
     weak var view: GTPresentable?
     
     private let colorsSet: [UIColor] = [.red, .green, .blue]
@@ -27,18 +26,22 @@ final class GTableExampleViewModel {
         return colorsSet[randomIndex]
     }
     
-    private func createCells(range: Range<Int>) -> [GTCellProvider] {
-        range.map {
-            GTableCellModel(title: "Created at index \($0)", color: randomColor, action: cellAction)
-        }
-    }
-    
     private var cellAction: (IndexPath) -> Void {
         return { [weak self] indexPath in
             guard let self = self else { return }
-            let newModel = self.createCells(range: (indexPath.item..<indexPath.item + 1))
+            let newModel = self.createCells(text: "Reloaded at index", range: (indexPath.item..<indexPath.item + 1))
             self.view?.gridManager.reloadCells(newModel, section: 0, pattern: .startWithIndex(indexPath.item), animation: .fade)
         }
+    }
+    
+    private func createCells(text: String, range: Range<Int>) -> [GTCellProvider] {
+        range.map {
+            GTableCellModel(title: text + " \($0)", color: randomColor, action: cellAction)
+        }
+    }
+
+    private func testApi(delay: TimeInterval, block: @escaping() -> Void) {
+        Timer.scheduledTimer(withTimeInterval: delay, repeats: false, block: { _ in block() })
     }
     
 }
@@ -47,9 +50,22 @@ final class GTableExampleViewModel {
 extension GTableExampleViewModel: GTableExampleViewModelInput {
     
     func viewIsReady() {
-        let cells = createCells(range: (0..<50))
+        let cells = createCells(text: "Created at index", range: (0..<5))
         let sections = GridSection(header: nil, cells: cells, footer: nil)
         view?.gridManager.reloadData(sections: [sections], animator: .bottom())
+        
+        testApi(delay: 1) { [weak self] in
+            guard let self = self else { return }
+            let cells = self.createCells(text: "Inserted at index", range: (0..<5))
+            self.view?.gridManager.insertCells(cells, section: 0, pattern: .startWithIndex(0), animation: .left)
+        }
+        
+        testApi(delay: 3) { [weak self] in
+            guard let self = self else { return }
+            let cells = self.createCells(text: "Inserted at index", range: (0..<5))
+            self.view?.gridManager.insertCells(cells, section: 0, pattern: .startWithIndex(0), animation: .left)
+        }
+        
     }
     
 }

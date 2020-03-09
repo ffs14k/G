@@ -39,8 +39,7 @@ public protocol GTManagerProtocol {
     
     func appendCells(_ cells: [GTCellProvider], section: Int, animation: Animation?)
     
-//    TODO
-//    func insertCells(_ cells: [GTCellProvider], section: Int, pattern: GridSourceMatchPattern, animation: Animation?)
+    func insertCells(_ cells: [GTCellProvider], section: Int, pattern: GridSourceMatchPattern, animation: Animation?)
     
     func reloadCells(_ cells: [GTCellProvider], section: Int, pattern: GridSourceMatchPattern, animation: Animation?)
     
@@ -199,6 +198,18 @@ public extension GTManager {
         }
     }
     
+    func insertCells(_ cells: [GTCellProvider], section: Int, pattern: GridSourceMatchPattern, animation: Animation?) {
+        
+        let items = cells.map({ $0.gtcModel })
+        let insertIndexPaths = gridSource.insertItems(items, section: section, pattern: pattern)
+        
+        updateTable(animation: animation) { animation in
+            tableView.insertRows(at: insertIndexPaths, with: animation)
+            updateVisibleCellsIndexPaths()
+        }
+        
+    }
+    
     func reloadCells(_ cells: [GTCellProvider], section: Int, pattern: GridSourceMatchPattern, animation: Animation?) {
         
         let items = cells.map({ $0.gtcModel })
@@ -216,6 +227,7 @@ public extension GTManager {
         
         updateTable(animation: animation) { animation in
             tableView.deleteRows(at: deleteeIndexPaths, with: animation)
+            updateVisibleCellsIndexPaths()
         }
         
     }
@@ -270,6 +282,14 @@ private extension GTManager {
             return
         }
         block(animation)
+    }
+    
+    private func updateVisibleCellsIndexPaths() {
+        tableView.indexPathsForVisibleRows?.forEach({ indexPath in
+            guard let cell = tableView.cellForRow(at: indexPath) else { return }
+            let cellModel = (gridSource.item(section: indexPath.section, item: indexPath.item) as! GTManagerCell)
+            cellModel.updateIndexPath(cell)
+        })
     }
     
 }
