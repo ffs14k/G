@@ -147,7 +147,7 @@ public extension GridSource {
         case .matchIndexes(let indexes):
             
             var buffer: [GCIndexPathable] = []
-            buffer.reserveCapacity(newItemsCount - 2)
+            buffer.reserveCapacity(newItemsCount)
             
             let insertItems = createIndexedItems(items: items, indexes: indexes)
             var itemsIndex = 0
@@ -219,15 +219,14 @@ public extension GridSource {
             
             removeIndexPaths.reserveCapacity(indexes.count)
             
-            let endItemsCount = itemsCount - indexes.count - 2
             let removeIndexedIndexes = Dictionary(uniqueKeysWithValues: indexes.lazy.map({ ($0, $0) }))
             
             var buffer: [GCIndexPathable] = []
-            buffer.reserveCapacity(endItemsCount)
+            buffer.reserveCapacity(itemsCount - indexes.count)
             
             var itemsIndex = 0
             
-            (0...endItemsCount).forEach {
+            (0..<itemsCount).forEach {
                 
                 guard removeIndexedIndexes[$0] == nil else {
                     removeIndexPaths.append(IndexPath(item: $0, section: section))
@@ -239,10 +238,10 @@ public extension GridSource {
                 itemsIndex += 1
             }
             
+            sections[section]!.items = buffer
         }
         
         return removeIndexPaths
-        
     }
     
 }

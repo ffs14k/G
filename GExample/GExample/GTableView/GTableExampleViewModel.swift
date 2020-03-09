@@ -41,7 +41,7 @@ final class GTableExampleViewModel {
     }
 
     private func testApi(delay: TimeInterval, block: @escaping() -> Void) {
-        Timer.scheduledTimer(withTimeInterval: delay, repeats: false, block: { _ in block() })
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: block)
     }
     
 }
@@ -60,10 +60,14 @@ extension GTableExampleViewModel: GTableExampleViewModelInput {
             self.view?.gridManager.insertCells(cells, section: 0, pattern: .startWithIndex(0), animation: .left)
         }
         
-        testApi(delay: 3) { [weak self] in
+        testApi(delay: 2.5) { [weak self] in
             guard let self = self else { return }
             let cells = self.createCells(text: "Inserted at index", range: (0..<5))
             self.view?.gridManager.insertCells(cells, section: 0, pattern: .startWithIndex(0), animation: .left)
+        }
+        
+        testApi(delay: 4.5) { [weak self] in
+            self?.view?.gridManager.deleteCells(section: 0, pattern: .matchIndexes([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]), animation: .left)
         }
         
     }

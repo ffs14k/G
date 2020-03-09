@@ -83,15 +83,15 @@ extension GTViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        tableManager.willDisplayCell(cell, section: indexPath.section)
+        tableManager.willDisplayCell(cell, section: indexPath.section, gridRect: tableView.frame)
     }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        tableManager.willDisplayHeader(view, section: section)
+        tableManager.willDisplayHeader(view, section: section, gridRect: tableView.frame)
     }
     
     func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
-        tableManager.willDisplayFooter(view, section: section)
+        tableManager.willDisplayFooter(view, section: section, gridRect: tableView.frame)
     }
     
 }

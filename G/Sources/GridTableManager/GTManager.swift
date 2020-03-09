@@ -108,19 +108,16 @@ public final class GTManager: GTManagerProtocol {
     }
     
     // Raw reload animator
-    public func willDisplayCell(_ cell: UITableViewCell, section: Int, gridRect: CGRect = .zero) {
-        let rect = gridRect == .zero ? tableView.frame : gridRect
-        reloadAnimator?.willDisplay(cell, type: .cell, section: section, gridRect: rect)
+    public func willDisplayCell(_ cell: UITableViewCell, section: Int, gridRect: CGRect) {
+        reloadAnimator?.willDisplay(cell, type: .cell, section: section, gridRect: gridRect)
     }
     
-    public func willDisplayHeader(_ header: UIView, section: Int, gridRect: CGRect = .zero) {
-        let rect = gridRect == .zero ? tableView.frame : gridRect
-        reloadAnimator?.willDisplay(header, type: .header, section: section, gridRect: rect)
+    public func willDisplayHeader(_ header: UIView, section: Int, gridRect: CGRect) {
+        reloadAnimator?.willDisplay(header, type: .header, section: section, gridRect: gridRect)
     }
     
-    public func willDisplayFooter(_ footer: UIView, section: Int, gridRect: CGRect = .zero) {
-        let rect = gridRect == .zero ? tableView.frame : gridRect
-        reloadAnimator?.willDisplay(footer, type: .footer, section: section, gridRect: rect)
+    public func willDisplayFooter(_ footer: UIView, section: Int, gridRect: CGRect) {
+        reloadAnimator?.willDisplay(footer, type: .footer, section: section, gridRect: gridRect)
     }
     
 }
@@ -223,10 +220,10 @@ public extension GTManager {
     
     func deleteCells(section: Int, pattern: GridSourceMatchPattern, animation: Animation?) {
         
-        let deleteeIndexPaths = gridSource.deleteItems(section: section, pattern: pattern)
+        let deleteIndexPaths = gridSource.deleteItems(section: section, pattern: pattern)
         
         updateTable(animation: animation) { animation in
-            tableView.deleteRows(at: deleteeIndexPaths, with: animation)
+            tableView.deleteRows(at: deleteIndexPaths, with: animation)
             updateVisibleCellsIndexPaths()
         }
         
