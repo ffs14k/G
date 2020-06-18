@@ -18,7 +18,6 @@ public protocol GTCSetupable: GTCSetupableCreator {
     func setup(model: Model)
     
     func size(in rect: CGRect, model: Model) -> CGSize
-    
 }
 
 extension GTCSetupable {
@@ -26,6 +25,10 @@ extension GTCSetupable {
     func setup(gtcModel: GTCellModel<Self>) {
         self.gtcModel = gtcModel
         setup(model: gtcModel.model)
+    }
+    
+    public static func build(model: Model) -> GTCellModel<Self> {
+        return GTCellModel<Self>(model: model)
     }
     
 }

@@ -8,35 +8,27 @@
 
 import UIKit
 
-public protocol GridReloadAnimatorManagerReleaser: AnyObject {
-    func releaseAnimatorManager()
-}
-
 public protocol GridReloadAnimatorManager: AnyObject {
 
     var animator: GridReloadAnimator { get }
-    var animatorReleaser: GridReloadAnimatorManagerReleaser? { get set }
 
     func willDisplay(_ cell: UIView, type: GCIndexPath.CellType, section: Int, gridRect: CGRect)
-    func handleCellsAnimation()
+    func handleCellsAnimation(completion: () -> Void)
 }
 
 open class GridReloadAnimatorManagerImp: GridReloadAnimatorManager {
 
-    // MARK: - Properties
-
-    public weak var animatorReleaser: GridReloadAnimatorManagerReleaser?
+    // MARK: - Public Properties
+    
     public let animator: GridReloadAnimator
-
-    let itemDelay: TimeInterval
-    private(set) var sections: [Int: Section] = [:]
-    private(set) var gridRect: CGRect = .zero
+    public let itemDelay: TimeInterval
+    
+    private(set) public var sections: [Int: Section] = [:]
+    private(set) public var gridRect: CGRect = .zero
 
     // MARK: - Init
 
-    init(itemDelay: TimeInterval,
-         animator: GridReloadAnimator)
-    {
+    public init(itemDelay: TimeInterval, animator: GridReloadAnimator) {
         self.animator = animator
         self.itemDelay = itemDelay
     }
@@ -64,7 +56,7 @@ open class GridReloadAnimatorManagerImp: GridReloadAnimatorManager {
         
     }
     
-    open func handleCellsAnimation() {
+    open func handleCellsAnimation(completion: () -> Void) {
         
         var headerDelay: TimeInterval = 0
         var cellDelay: TimeInterval = 0
@@ -90,11 +82,8 @@ open class GridReloadAnimatorManagerImp: GridReloadAnimatorManager {
             }
             
             headerDelay = footerDelay
-            
         }
-        
-        animatorReleaser?.releaseAnimatorManager()
-        
+        completion()
     }
 
 }
@@ -102,9 +91,9 @@ open class GridReloadAnimatorManagerImp: GridReloadAnimatorManager {
 public extension GridReloadAnimatorManagerImp {
     
     struct Section {
-        var header: UIView?
-        var cells: [UIView]
-        var footer: UIView?
+        public var header: UIView?
+        public var cells: [UIView]
+        public var footer: UIView?
     }
-
+    
 }

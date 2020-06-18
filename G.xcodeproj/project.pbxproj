@@ -16,7 +16,7 @@
 		44674BD023FB07930047F187 /* GTCSetupable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44674BCF23FB07930047F187 /* GTCSetupable.swift */; };
 		44674BD223FB07A70047F187 /* GTCConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44674BD123FB07A70047F187 /* GTCConfigurator.swift */; };
 		44674BD423FB07BE0047F187 /* GTCSetupableCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44674BD323FB07BE0047F187 /* GTCSetupableCreator.swift */; };
-		44674BD623FB07F10047F187 /* GTCSizeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44674BD523FB07F10047F187 /* GTCSizeProvider.swift */; };
+		44674BD623FB07F10047F187 /* GridCellSizeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44674BD523FB07F10047F187 /* GridCellSizeProvider.swift */; };
 		44674BD823FB09E50047F187 /* GridSourceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44674BD723FB09E50047F187 /* GridSourceProtocol.swift */; };
 		44674BDA23FB0A220047F187 /* GridSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44674BD923FB0A220047F187 /* GridSource.swift */; };
 		44674BDC23FB468F0047F187 /* ClassNameIdentified.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44674BDB23FB468F0047F187 /* ClassNameIdentified.swift */; };
@@ -28,6 +28,11 @@
 		4486B2872414359700306926 /* GridSourceInsertTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4486B2862414359700306926 /* GridSourceInsertTests.swift */; };
 		4486B28924147FC500306926 /* GridSourceReloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4486B28824147FC500306926 /* GridSourceReloadTests.swift */; };
 		4486B28B2415493700306926 /* GridSourceRemoveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4486B28A2415493700306926 /* GridSourceRemoveTests.swift */; };
+		476CD69C244B409100F1081A /* GCManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 476CD69B244B409100F1081A /* GCManager.swift */; };
+		476CD69F244B418100F1081A /* GCCSetupableCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 476CD69E244B418100F1081A /* GCCSetupableCreator.swift */; };
+		476CD6A1244B41A600F1081A /* GCCConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 476CD6A0244B41A600F1081A /* GCCConfigurator.swift */; };
+		476CD6A3244B41B500F1081A /* GCCSetupable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 476CD6A2244B41B500F1081A /* GCCSetupable.swift */; };
+		476CD6A5244B41CD00F1081A /* GCCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 476CD6A4244B41CD00F1081A /* GCCellModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,7 +65,7 @@
 		44674BCF23FB07930047F187 /* GTCSetupable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GTCSetupable.swift; sourceTree = "<group>"; };
 		44674BD123FB07A70047F187 /* GTCConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GTCConfigurator.swift; sourceTree = "<group>"; };
 		44674BD323FB07BE0047F187 /* GTCSetupableCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GTCSetupableCreator.swift; sourceTree = "<group>"; };
-		44674BD523FB07F10047F187 /* GTCSizeProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GTCSizeProvider.swift; sourceTree = "<group>"; };
+		44674BD523FB07F10047F187 /* GridCellSizeProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridCellSizeProvider.swift; sourceTree = "<group>"; };
 		44674BD723FB09E50047F187 /* GridSourceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridSourceProtocol.swift; sourceTree = "<group>"; };
 		44674BD923FB0A220047F187 /* GridSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridSource.swift; sourceTree = "<group>"; };
 		44674BDB23FB468F0047F187 /* ClassNameIdentified.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassNameIdentified.swift; sourceTree = "<group>"; };
@@ -73,6 +78,11 @@
 		4486B28824147FC500306926 /* GridSourceReloadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridSourceReloadTests.swift; sourceTree = "<group>"; };
 		4486B28A2415493700306926 /* GridSourceRemoveTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridSourceRemoveTests.swift; sourceTree = "<group>"; };
 		4486B2AE2415773D00306926 /* GExample.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GExample.xcodeproj; path = GExample/GExample.xcodeproj; sourceTree = "<group>"; };
+		476CD69B244B409100F1081A /* GCManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCManager.swift; sourceTree = "<group>"; };
+		476CD69E244B418100F1081A /* GCCSetupableCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCCSetupableCreator.swift; sourceTree = "<group>"; };
+		476CD6A0244B41A600F1081A /* GCCConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCCConfigurator.swift; sourceTree = "<group>"; };
+		476CD6A2244B41B500F1081A /* GCCSetupable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCCSetupable.swift; sourceTree = "<group>"; };
+		476CD6A4244B41CD00F1081A /* GCCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCCellModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,8 +150,10 @@
 		44674BC523FAFC5A0047F187 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				44674BE823FCA2A80047F187 /* GridReloadAnimator */,
+				476CD6A6244B433C00F1081A /* GridCellSizeProvider */,
 				44674BDD23FB46B70047F187 /* Common */,
+				476CD699244B3E6100F1081A /* GridCollectionManager */,
+				44674BE823FCA2A80047F187 /* GridReloadAnimator */,
 				44674BC623FB04610047F187 /* GridSource */,
 				44674BCB23FB06FE0047F187 /* GridTableManager */,
 			);
@@ -163,7 +175,6 @@
 			isa = PBXGroup;
 			children = (
 				44674BCE23FB07860047F187 /* Protocols */,
-				44674BD523FB07F10047F187 /* GTCSizeProvider.swift */,
 				44674BCC23FB07320047F187 /* GTCellModel.swift */,
 				44674BE323FC95410047F187 /* GTManager.swift */,
 			);
@@ -173,8 +184,8 @@
 		44674BCE23FB07860047F187 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				44674BCF23FB07930047F187 /* GTCSetupable.swift */,
 				44674BD123FB07A70047F187 /* GTCConfigurator.swift */,
+				44674BCF23FB07930047F187 /* GTCSetupable.swift */,
 				44674BD323FB07BE0047F187 /* GTCSetupableCreator.swift */,
 			);
 			path = Protocols;
@@ -211,6 +222,34 @@
 				4486B2B32415773F00306926 /* GExample.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		476CD699244B3E6100F1081A /* GridCollectionManager */ = {
+			isa = PBXGroup;
+			children = (
+				476CD69D244B417600F1081A /* Protocols */,
+				476CD69B244B409100F1081A /* GCManager.swift */,
+				476CD6A4244B41CD00F1081A /* GCCellModel.swift */,
+			);
+			path = GridCollectionManager;
+			sourceTree = "<group>";
+		};
+		476CD69D244B417600F1081A /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				476CD6A0244B41A600F1081A /* GCCConfigurator.swift */,
+				476CD6A2244B41B500F1081A /* GCCSetupable.swift */,
+				476CD69E244B418100F1081A /* GCCSetupableCreator.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		476CD6A6244B433C00F1081A /* GridCellSizeProvider */ = {
+			isa = PBXGroup;
+			children = (
+				44674BD523FB07F10047F187 /* GridCellSizeProvider.swift */,
+			);
+			path = GridCellSizeProvider;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -345,13 +384,18 @@
 				44674BD423FB07BE0047F187 /* GTCSetupableCreator.swift in Sources */,
 				44674BC823FB04EC0047F187 /* GridSourceSection.swift in Sources */,
 				44674BCD23FB07320047F187 /* GTCellModel.swift in Sources */,
+				476CD69F244B418100F1081A /* GCCSetupableCreator.swift in Sources */,
 				44674BD823FB09E50047F187 /* GridSourceProtocol.swift in Sources */,
 				44674BE423FC95410047F187 /* GTManager.swift in Sources */,
+				476CD6A3244B41B500F1081A /* GCCSetupable.swift in Sources */,
 				44674BEC23FCA3010047F187 /* GridReloadAnimator.swift in Sources */,
 				44674BD223FB07A70047F187 /* GTCConfigurator.swift in Sources */,
-				44674BD623FB07F10047F187 /* GTCSizeProvider.swift in Sources */,
+				476CD6A1244B41A600F1081A /* GCCConfigurator.swift in Sources */,
+				44674BD623FB07F10047F187 /* GridCellSizeProvider.swift in Sources */,
+				476CD6A5244B41CD00F1081A /* GCCellModel.swift in Sources */,
 				44674BDC23FB468F0047F187 /* ClassNameIdentified.swift in Sources */,
 				44674BEE23FCA3210047F187 /* GridReloadAnimatorFactory.swift in Sources */,
+				476CD69C244B409100F1081A /* GCManager.swift in Sources */,
 				44674BCA23FB058B0047F187 /* GCIndexPathable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

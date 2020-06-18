@@ -9,14 +9,9 @@
 import UIKit
 
 // Grid Table Cell
+public typealias GTCell = GTCConfigurator & GCIndexPathable
 
-public typealias GTManagerCell = GTCConfigurator & GCIndexPathable
-
-public protocol GTCellProvider {
-    var gtcModel: GTManagerCell  { get }
-}
-
-public struct GTCellModel<Modelable: GTCSetupable>: GTManagerCell {
+public struct GTCellModel<Modelable: GTCSetupable>: GTCell {
     
     public typealias ModelableModel = Modelable.Model
     
@@ -31,11 +26,12 @@ public struct GTCellModel<Modelable: GTCSetupable>: GTManagerCell {
     
     public init(model: ModelableModel) {
         
-        if Modelable.self is UITableViewCell.Type {
+        switch Modelable.self {
+        case is UITableViewCell.Type:
             gcIndexPath = .zero(type: .cell, section: 0)
-        } else if Modelable.self is UITableViewHeaderFooterView.Type {
+        case is UITableViewHeaderFooterView.Type:
             gcIndexPath = .zero(type: .header, section: 0)
-        } else {
+        default:
             fatalError("Modelable must be UITableViewCell or UITableViewHeaderFooterView")
         }
         
@@ -47,10 +43,9 @@ public struct GTCellModel<Modelable: GTCSetupable>: GTManagerCell {
         self.model = model
     }
     
-    
     // MARK: - GTCConfigurator
     
-    public func size(in rect: CGRect, sizeProvider: GTCSizeProvider) -> CGSize {
+    public func size(in rect: CGRect, sizeProvider: GridCellSizeProvider) -> CGSize {
         return sizeProvider.size(in: rect, gtcModel: self)
     }
     
@@ -75,8 +70,8 @@ public struct GTCellModel<Modelable: GTCSetupable>: GTManagerCell {
         return cell as! UITableViewCell
     }
     
-    public func updateIndexPath(_ cell: UITableViewCell) {
-        (cell as! Modelable).gtcModel!.updateIndexPath(indexPath)
+    public func updateCell(_ cell: UITableViewCell) {
+        (cell as! Modelable).setup(gtcModel: self)
     }
     
 }

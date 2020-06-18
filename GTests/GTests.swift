@@ -18,6 +18,10 @@ class GTests: XCTestCase {
         
     }
     
+    struct TestCellModelProvider: GTCell {
+        var gtcModel: GTCell
+    }
+    
     static func cells(count: Int, startId: Int, section: Int = 0) -> [TestCellModel] {
         var id = startId
         return (0..<count).map({ idx -> TestCellModel in
@@ -27,6 +31,14 @@ class GTests: XCTestCase {
         })
     }
     
+    static func cellProviders(count: Int, startId: Int, section: Int = 0) -> [TestCellModelProvider] {
+        var id = startId
+        return (0..<count).map({ idx -> TestCellModelProvider in
+            let model = GTCellModel<TestTableCell>.init(model: id)
+            id += 1
+            return TestCellModelProvider(gtcModel: model)
+        })
+    }
     
     static func iterateCells(source: GridSource, section: Int, testBlock: (Int, TestCellModel) -> Void) {
         for (idx, cell) in source.section(index: section).items.enumerated() {
@@ -35,24 +47,31 @@ class GTests: XCTestCase {
         }
     }
     
-    override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    static func iterateGTC(source: GridSource, section: Int, testBlock: (Int, GTCellModel<TestTableCell>) -> Void) {
+        for (idx, cell) in source.section(index: section).items.enumerated() {
+            let cell = cell as! GTCellModel<TestTableCell>
+            testBlock(idx, cell)
         }
     }
 
+}
+
+final class TestTableCell: UITableViewCell, GTCSetupable {
+    
+    var gtcModel: GTCellModel<TestTableCell>?
+    
+    func size(in rect: CGRect, model: Int) -> CGSize {
+        return .zero
+    }
+    
+    typealias Model = Int
+    
+    static func createSelf() -> TestTableCell {
+        return TestTableCell()
+    }
+    
+    func setup(model: Int) {
+        
+    }
+    
 }

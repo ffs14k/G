@@ -36,7 +36,6 @@ extension GCIndexPathable {
         object.gcIndexPath = gcIndexPath
         return object
     }
-    
 }
 
 
@@ -56,5 +55,4 @@ public struct GCIndexPath: Hashable {
         let indexPath = IndexPath(item: 0, section: section)
         return GCIndexPath(cellType: type, indexPath: indexPath)
     }
-    
 }

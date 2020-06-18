@@ -22,7 +22,6 @@ public enum GridReloadAnimatorFactory {
             return animatorManager
         }
     }
-    
 }
 
 
@@ -70,5 +69,4 @@ public extension GridReloadAnimatorFactory {
         let animator = GridFadeAnimator(duration: duration, options: options)
         return .default(itemDelay: itemDelay, animator: animator)
     }
-    
 }

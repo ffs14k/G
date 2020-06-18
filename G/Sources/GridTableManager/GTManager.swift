@@ -16,20 +16,19 @@ public protocol GTManagerProtocol {
     
     func cellsCount(for section: Int) -> Int?
     
-    func header(for section: Int) -> GTManagerCell?
+    func header(for section: Int) -> GTCell?
     
-    func footer(for section: Int) -> GTManagerCell?
+    func footer(for section: Int) -> GTCell?
     
-    func cells(for section: Int) -> [GTManagerCell]
+    func cells(for section: Int) -> [GTCell]
     
-    func cell(for section: Int, at index: Int) -> GTManagerCell
+    func cell(for section: Int, at index: Int) -> GTCell
     
     func reloadData(sections: [GridSection], animator: GridReloadAnimatorFactory?)
     
     func appendSections(_ sections: [GridSection], with animation: Animation?)
     
-//    TODO
-//    func insertSections(_ sections: [GridSection], _ pattern: GridSourceMatchPattern, with animation: Animation?)
+    func insertSections(_ sections: [GridSection], _ pattern: GridSourceMatchPattern, with animation: Animation?)
     
 //    TODO
 //    func reloadSections(_ sections: [GridSection], _ pattern: GridSourceMatchPattern, with animation: Animation?)
@@ -37,39 +36,40 @@ public protocol GTManagerProtocol {
 //    TODO
 //    func deleteSections(_ pattern: GridSourceMatchPattern, animation: Animation?)
     
-    func appendCells(_ cells: [GTCellProvider], section: Int, animation: Animation?)
+    func appendCells(_ cells: [GTCell], section: Int, animation: Animation?)
     
-    func insertCells(_ cells: [GTCellProvider], section: Int, pattern: GridSourceMatchPattern, animation: Animation?)
+    func insertCells(_ cells: [GTCell], section: Int, pattern: GridSourceMatchPattern, animation: Animation?)
     
-    func reloadCells(_ cells: [GTCellProvider], section: Int, pattern: GridSourceMatchPattern, animation: Animation?)
+    func reloadCells(_ cells: [GTCell], section: Int, pattern: GridSourceMatchPattern, animation: Animation?)
     
     func deleteCells(section: Int, pattern: GridSourceMatchPattern, animation: Animation?)
     
-    func updateHeader(_ header: GTCellProvider, section: Int, animation: Animation?)
+    func updateHeader(_ header: GTCell, section: Int, animation: Animation?)
     
-    func updateFooter(_ footer: GTCellProvider, section: Int, animation: Animation?)
-    
+    func updateFooter(_ footer: GTCell, section: Int, animation: Animation?)
 }
 
 public extension GTManagerProtocol {
     
-    func cell(indexPath: IndexPath) -> GTManagerCell {
+    func cell(indexPath: IndexPath) -> GTCell {
         return cell(for: indexPath.section, at: indexPath.item)
     }
     
+    func reloadData(section: GridSection, animator: GridReloadAnimatorFactory?) {
+        self.reloadData(sections: [section], animator: animator)
+    }
 }
 
 public final class GTManager: GTManagerProtocol {
     
     public unowned var tableView: UITableView!
     
-    private let sizeProvider: GTCSizeProvider
+    private let sizeProvider: GridCellSizeProvider
     private let gridSource: GridSourceProtocol
     private var reloadAnimator: GridReloadAnimatorManager?
     
     public init(gridSource: GridSourceProtocol = GridSource(),
-        sizeProvider: GTCSizeProvider = GTCSizeProviderImp())
-    {
+        sizeProvider: GridCellSizeProvider = GridCellSizeProviderImp()) {
         self.gridSource = gridSource
         self.sizeProvider = sizeProvider
     }
@@ -134,25 +134,30 @@ public extension GTManager {
         return gridSource.itemsCount(section: section)
     }
     
-    func header(for section: Int) -> GTManagerCell? {
+    func header(for section: Int) -> GTCell? {
         guard let header = gridSource.headerItem(section: section) else { return nil }
-        return (header as! GTManagerCell)
+        return (header as! GTCell)
     }
     
-    func footer(for section: Int) -> GTManagerCell? {
+    func footer(for section: Int) -> GTCell? {
         guard let footer = gridSource.footerItem(section: section) else { return nil }
-        return (footer as! GTManagerCell)
+        return (footer as! GTCell)
     }
     
-    func cells(for section: Int) -> [GTManagerCell] {
-        return gridSource.items(section: section) as! [GTManagerCell]
+    func cells(for section: Int) -> [GTCell] {
+        return gridSource.items(section: section) as! [GTCell]
     }
     
-    func cell(for section: Int, at index: Int) -> GTManagerCell {
-        return gridSource.item(section: section, item: index) as! GTManagerCell
+    func cell(for section: Int, at index: Int) -> GTCell {
+        return gridSource.item(section: section, item: index) as! GTCell
     }
     
     func reloadData(sections: [GridSection], animator: GridReloadAnimatorFactory?) {
+        
+        gridSource.reloadData(sections: sections)
+        reloadAnimator = animator?.animatorManager
+        
+        tableView.reloadData()
         
         func waitForCellsLoaded() {
             DispatchQueue.main.async {
@@ -160,15 +165,9 @@ public extension GTManager {
                     waitForCellsLoaded()
                     return
                 }
-                self.reloadAnimator!.handleCellsAnimation()
+                self.reloadAnimator?.handleCellsAnimation(completion: { self.reloadAnimator = nil })
             }
         }
-        
-        gridSource.reloadData(sections: sections)
-        reloadAnimator = animator?.animatorManager
-        reloadAnimator?.animatorReleaser = self
-        
-        tableView.reloadData()
 
         if let _ = reloadAnimator {
             waitForCellsLoaded()
@@ -178,27 +177,34 @@ public extension GTManager {
     
     func appendSections(_ sections: [GridSection], with animation: Animation?) {
         
-        let appendRange = gridSource.appendSections(sections)
+        let appendIndexSet = gridSource.appendSections(sections)
         
         updateTable(animation: animation) { animation in
-            tableView.insertSections(IndexSet(integersIn: appendRange), with: animation)
+            tableView.insertSections(appendIndexSet, with: animation)
         }
     }
     
-    func appendCells(_ cells: [GTCellProvider], section: Int, animation: Animation?) {
+    func insertSections(_ sections: [GridSection], _ pattern: GridSourceMatchPattern, with animation: Animation?) {
         
-        let items = cells.map({ $0.gtcModel })
-        let appendIndexPaths = gridSource.appendItems(items, section: section)
+        let insertIndexSet = gridSource.insertSections(sections, pattern: pattern)
+        
+        updateTable(animation: animation) { animation in
+            tableView.insertSections(insertIndexSet, with: animation)
+        }
+    }
+    
+    func appendCells(_ cells: [GTCell], section: Int, animation: Animation?) {
+        
+        let appendIndexPaths = gridSource.appendItems(cells, section: section)
         
         updateTable(animation: animation) { animation in
             tableView.insertRows(at: appendIndexPaths, with: animation)
         }
     }
     
-    func insertCells(_ cells: [GTCellProvider], section: Int, pattern: GridSourceMatchPattern, animation: Animation?) {
+    func insertCells(_ cells: [GTCell], section: Int, pattern: GridSourceMatchPattern, animation: Animation?) {
         
-        let items = cells.map({ $0.gtcModel })
-        let insertIndexPaths = gridSource.insertItems(items, section: section, pattern: pattern)
+        let insertIndexPaths = gridSource.insertItems(cells, section: section, pattern: pattern)
         
         updateTable(animation: animation) { animation in
             tableView.insertRows(at: insertIndexPaths, with: animation)
@@ -207,10 +213,9 @@ public extension GTManager {
         
     }
     
-    func reloadCells(_ cells: [GTCellProvider], section: Int, pattern: GridSourceMatchPattern, animation: Animation?) {
+    func reloadCells(_ cells: [GTCell], section: Int, pattern: GridSourceMatchPattern, animation: Animation?) {
         
-        let items = cells.map({ $0.gtcModel })
-        let reloadIndexPaths = gridSource.reloadItems(items, section: 0, pattern: pattern)
+        let reloadIndexPaths = gridSource.reloadItems(cells, section: 0, pattern: pattern)
         
         updateTable(animation: animation) { animation in
             tableView.reloadRows(at: reloadIndexPaths, with: animation)
@@ -229,9 +234,9 @@ public extension GTManager {
         
     }
     
-    func updateHeader(_ header: GTCellProvider, section: Int, animation: Animation?) {
+    func updateHeader(_ header: GTCell, section: Int, animation: Animation?) {
         
-        gridSource.updateHeader(header.gtcModel, atSection: section)
+        gridSource.updateHeader(header, atSection: section)
         
         guard let headerView = tableView.headerView(forSection: section) else {
             updateTable(animation: animation) { animation in
@@ -243,9 +248,9 @@ public extension GTManager {
         _ = self.header(for: section)!.configureHeaderFooter(headerView)
     }
     
-    func updateFooter(_ footer: GTCellProvider, section: Int, animation: Animation?) {
+    func updateFooter(_ footer: GTCell, section: Int, animation: Animation?) {
         
-        gridSource.updateFooter(footer.gtcModel, atSection: section)
+        gridSource.updateFooter(footer, atSection: section)
         
         guard let footerView = tableView.footerView(forSection: section) else {
             updateTable(animation: animation) { animation in
@@ -256,17 +261,6 @@ public extension GTManager {
         
         _ = self.footer(for: section)!.configureHeaderFooter(footerView)
     }
-    
-}
-
-
-// MARK: - GridReloadAnimatorManagerReleaser
-extension GTManager: GridReloadAnimatorManagerReleaser {
-    
-    public func releaseAnimatorManager() {
-        reloadAnimator = nil
-    }
-    
 }
 
 
@@ -284,9 +278,8 @@ private extension GTManager {
     private func updateVisibleCellsIndexPaths() {
         tableView.indexPathsForVisibleRows?.forEach({ indexPath in
             guard let cell = tableView.cellForRow(at: indexPath) else { return }
-            let cellModel = (gridSource.item(section: indexPath.section, item: indexPath.item) as! GTManagerCell)
-            cellModel.updateIndexPath(cell)
+            let cellModel = gridSource.item(section: indexPath.section, item: indexPath.item) as! GTCell
+            cellModel.updateCell(cell)
         })
     }
-    
 }

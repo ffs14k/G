@@ -6,8 +6,8 @@
 //  Copyright © 2020 Eugene. All rights reserved.
 //
 
-import UIKit
 import G
+import UIKit
 
 public protocol GTPresentable: AnyObject {
     var gridManager: GTManagerProtocol { get }
@@ -71,15 +71,15 @@ extension GTViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return tableManager.cellSize(forIndexPath: indexPath, in: view.frame).height
+        return tableManager.cellSize(forIndexPath: indexPath, in: tableView.frame).height
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return tableManager.headerSize(forSection: section, in: view.frame).height
+        return tableManager.headerSize(forSection: section, in: tableView.frame).height
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return tableManager.footerSize(forSection: section, in: view.frame).height
+        return tableManager.footerSize(forSection: section, in: tableView.frame).height
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

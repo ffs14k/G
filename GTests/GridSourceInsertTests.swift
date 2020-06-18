@@ -11,6 +11,8 @@ import XCTest
 
 final class GridSourceInsertTests: XCTestCase {
     
+    // MARK: - Cells Inserts
+    
     func testInsertStartWithIndexItems() {
         
         let gridSource = GridSource()
@@ -160,6 +162,106 @@ final class GridSourceInsertTests: XCTestCase {
             XCTAssertEqual(model.gcIndexPath.indexPath, IndexPath(item: idx, section: 0))
         }
         
+    }
+    
+    
+    // MARK: - Section insert
+    
+    func testInsertSections() {
+        
+        let gridSource = GridSource()
+        
+        let test1_section = GridSection(header: nil, cells: [], footer: nil)
+        let test1_indexSet_verif = IndexSet(arrayLiteral: 0)
+        
+        let test2_section = GridSection(header: nil, cells: GTests.cellProviders(count: 1, startId: 0), footer: nil)
+        let test2_indexSet_verif = IndexSet(arrayLiteral: 0)
+        
+        let test3_sections = (0..<5).map({ i in
+            GridSection(header: nil, cells: GTests.cellProviders(count: i + 2, startId: 0), footer: nil)
+        })
+        let test3_indexSet_verif = IndexSet(arrayLiteral: 1, 2, 3, 4, 5)
+        
+        let test4_section_indexes = [1, 4, 5, 6]
+        let test4_sections = test4_section_indexes.map({ i in
+            GridSection(header: nil, cells: GTests.cellProviders(count: i + 50, startId: 0), footer: nil)
+        })
+        let test4_indexSet_verif = IndexSet(test4_section_indexes)
+        
+        // helper functions
+        
+        func testSection(isHeaderNil: Bool, isFooterNil: Bool, itemsCount: Int, index: Int) {
+            if isHeaderNil {
+                XCTAssertTrue(gridSource.headerItem(section: index) == nil)
+            } else {
+                XCTAssertTrue(gridSource.headerItem(section: index) != nil)
+            }
+            
+            if isFooterNil {
+                XCTAssertTrue(gridSource.footerItem(section: index) == nil)
+            } else {
+                XCTAssertTrue(gridSource.footerItem(section: index) != nil)
+            }
+            
+            XCTAssertEqual(gridSource.itemsCount(section: index), itemsCount, "in section \(index)")
+        }
+        
+        // Test 1
+        
+        let test1_indexSet = gridSource.insertSections([test1_section], pattern: .startWithIndex(0))
+        XCTAssertTrue(gridSource.sectionsCount == 1)
+        XCTAssert(test1_indexSet == test1_indexSet_verif)
+        testSection(isHeaderNil: true, isFooterNil: true, itemsCount: 0, index: 0)
+
+        
+        // Test 2
+        
+        let test2_indexSet = gridSource.insertSections([test2_section], pattern: .startWithIndex(0))
+        
+        XCTAssertTrue(gridSource.sectionsCount == 2)
+        XCTAssertEqual(test2_indexSet, test2_indexSet_verif)
+        testSection(isHeaderNil: true, isFooterNil: true, itemsCount: 1, index: 0)
+        testSection(isHeaderNil: true, isFooterNil: true, itemsCount: 0, index: 1)
+        
+        
+        // Test 3
+        
+        let test3_indexSet = gridSource.insertSections(test3_sections, pattern: .startWithIndex(1))
+        
+        XCTAssertEqual(gridSource.sectionsCount, 7)
+        XCTAssertEqual(test3_indexSet, test3_indexSet_verif)
+        testSection(isHeaderNil: true, isFooterNil: true, itemsCount: 1, index: 0)
+        testSection(isHeaderNil: true, isFooterNil: true, itemsCount: 2, index: 1)
+        testSection(isHeaderNil: true, isFooterNil: true, itemsCount: 3, index: 2)
+        testSection(isHeaderNil: true, isFooterNil: true, itemsCount: 4, index: 3)
+        testSection(isHeaderNil: true, isFooterNil: true, itemsCount: 5, index: 4)
+        testSection(isHeaderNil: true, isFooterNil: true, itemsCount: 6, index: 5)
+        testSection(isHeaderNil: true, isFooterNil: true, itemsCount: 0, index: 6)
+        
+        GTests.iterateGTC(source: gridSource, section: 5) { (index: Int, gtcModel: GTCellModel<TestTableCell>) in
+            XCTAssertEqual(index, gtcModel.model)
+            XCTAssertEqual(gtcModel.indexPath, IndexPath(item: index, section: 5))
+        }
+        
+        
+        // Test 4
+        
+        let test4_indexSet = gridSource.insertSections(test4_sections, pattern: .matchIndexes(test4_section_indexes))
+        
+        XCTAssertEqual(gridSource.sectionsCount, 11)
+        XCTAssertEqual(test4_indexSet, test4_indexSet_verif)
+        
+        testSection(isHeaderNil: true, isFooterNil: true, itemsCount: 1, index: 0)
+        testSection(isHeaderNil: true, isFooterNil: true, itemsCount: 51, index: 1)
+        testSection(isHeaderNil: true, isFooterNil: true, itemsCount: 2, index: 2)
+        testSection(isHeaderNil: true, isFooterNil: true, itemsCount: 3, index: 3)
+        testSection(isHeaderNil: true, isFooterNil: true, itemsCount: 54, index: 4)
+        testSection(isHeaderNil: true, isFooterNil: true, itemsCount: 55, index: 5)
+        testSection(isHeaderNil: true, isFooterNil: true, itemsCount: 56, index: 6)
+        testSection(isHeaderNil: true, isFooterNil: true, itemsCount: 4, index: 7)
+        testSection(isHeaderNil: true, isFooterNil: true, itemsCount: 5, index: 8)
+        testSection(isHeaderNil: true, isFooterNil: true, itemsCount: 6, index: 9)
+        testSection(isHeaderNil: true, isFooterNil: true, itemsCount: 0, index: 10)
     }
     
     

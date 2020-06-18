@@ -11,11 +11,11 @@ import UIKit
 // Grid Table Cell
 public protocol GTCConfigurator {
     
-    func size(in rect: CGRect, sizeProvider: GTCSizeProvider) -> CGSize
+    func size(in rect: CGRect, sizeProvider: GridCellSizeProvider) -> CGSize
     
     func configureCell(_ tableView: UITableView) -> UITableViewCell
     
     func configureHeaderFooter(_ headerFooterView: UITableViewHeaderFooterView?) -> UITableViewHeaderFooterView
     
-    func updateIndexPath(_ cell: UITableViewCell)
+    func updateCell(_ cell: UITableViewCell)
 }

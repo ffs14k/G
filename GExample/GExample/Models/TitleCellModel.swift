@@ -13,5 +13,4 @@ struct TitleCellModel {
     let title: String
     let color: UIColor
     let action: (IndexPath) -> Void
-    
 }

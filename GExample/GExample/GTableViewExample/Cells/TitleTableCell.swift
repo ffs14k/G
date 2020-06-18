@@ -27,9 +27,10 @@ final class TitleTableCell: UITableViewCell {
     @objc final func tapAction() {
         gtcModel?.model.action(gtcModel!.indexPath)
     }
-    
 }
 
+
+// MARK: - GTCSetupable
 extension TitleTableCell: GTCSetupable {
     
     typealias Model = TitleCellModel
@@ -38,9 +39,16 @@ extension TitleTableCell: GTCSetupable {
         return TitleTableCell()
     }
     
+    // setup(gtcModel: GTCellModel<Self>) call this method by default. Whatch `GTCSetupable`
     func setup(model: TitleCellModel) {
-        textLabel?.text = "\(gtcModel!.indexPath) " + model.title
+        
+        // !automatic updating indexPaths withing gtcModel
+        let title = "\(gtcModel!.indexPath) " + model.title
+        
+        textLabel?.text = title
         backgroundColor = model.color
+        
+        print(model)
     }
     
     func size(in rect: CGRect, model: TitleCellModel) -> CGSize {

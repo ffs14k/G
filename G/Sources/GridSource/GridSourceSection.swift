@@ -8,21 +8,27 @@
 
 public struct GridSection {
     
+    /// Table / Collection section's header
     var headerItem: GCIndexPathable?
+    
+    /// Table / Collection section's cells
     var items: [GCIndexPathable]
+    
+    /// Table / Collection section's footer
     var footerItem: GCIndexPathable?
     
-}
-
-public extension GridSection {
     
-    init(header: GTCellProvider? = nil,
-         cells: [GTCellProvider] = [],
-         footer: GTCellProvider? = nil)
-    {
-        self.headerItem = header?.gtcModel
-        self.items = cells.map({ $0.gtcModel })
-        self.footerItem = footer?.gtcModel
+    /// Base init for Grid Section
+    /// - Parameters:
+    ///   - header: Some GCIndexPathable. Probably is `GCCellModel<Modelable: GCCSetupable>` or `GTCellModel<Modelable: GTCSetupable>`
+    ///   - items: Some GCIndexPathable. Probably is `GCCellModel<Modelable: GCCSetupable>` or `GTCellModel<Modelable: GTCSetupable>`
+    ///   - footer: Some GCIndexPathable. Probably is `GCCellModel<Modelable: GCCSetupable>` or `GTCellModel<Modelable: GTCSetupable>`
+    public init(header: GCIndexPathable? = nil,
+                items: [GCIndexPathable] = [],
+                footer: GCIndexPathable? = nil) {
+        self.headerItem = header
+        self.items = items
+        self.footerItem = footer
     }
     
 }

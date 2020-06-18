@@ -13,7 +13,6 @@ public final class GridSource: GridSourceProtocol {
     private var sections: [Int: GridSection] = [:]
     
     public init() { }
-    
 }
 
 
@@ -47,7 +46,6 @@ public extension GridSource {
     func item(section: Int, item: Int) -> GCIndexPathable {
         return sections[section]!.items[item]
     }
-    
 }
 
 
@@ -59,46 +57,61 @@ public extension GridSource {
         _ = appendSections(sections)
     }
     
-    func appendSections(_ sections: [GridSection]) -> Range<Int> {
+    func appendSections(_ sections: [GridSection]) -> IndexSet {
         let appendRange = (self.sections.count..<self.sections.count + sections.count)
         sections.forEach({
             let section = GridSection(section: $0, index: self.sections.count)
             self.sections.updateValue(section, forKey: self.sections.count)
         })
-        return appendRange
+        return IndexSet(integersIn: appendRange)
     }
     
-    //    func insertSections(_ sections: [GridSection], startWithIndex index: Int) -> Range<Int> {
-    //
-    //        guard sections.count > 0 && index < sections.count else {
-    //            let appendRange = appendSections(sections)
-    //            return appendRange
-    //        }
-    //
-    //        (index..<self.sections.count).reversed().forEach({
-    //            let shiftedIndex = $0 + sections.count
-    //            let shiftedSection = GridSection(section: self.sections[$0]!, index: shiftedIndex)
-    //            self.sections.updateValue(shiftedSection, forKey: shiftedIndex)
-    //        })
-    //
-    //        let insertRange = (index..<index + sections.count)
-    //
-    //        insertRange.enumerated().forEach({
-    //            let insertSection = GridSection(section: sections[$0], index: $1)
-    //            self.sections.updateValue(insertSection, forKey: $1)
-    //        })
-    //
-    //        return insertRange
-    //    }
-    
-    func updateFooter(_ footerItem: GCIndexPathable, atSection section: Int) {
-        fatalError()
+    func insertSections(_ sections: [GridSection], pattern: GridSourceMatchPattern) -> IndexSet {
+        
+        let newSectionsCount = self.sections.count + sections.count
+        let insertIndexes: [Int]
+        
+        switch pattern {
+        case .startWithIndex(let index):
+            insertIndexes = Array((index..<index + sections.count))
+            
+        case .matchIndexes(let indexes):
+            insertIndexes = indexes
+        }
+        
+        var buffer: [Int: GridSection] = [:]
+        buffer.reserveCapacity(newSectionsCount)
+        
+        let insertItems = createIndexesSections(sections: sections, indexes: insertIndexes)
+        var storageSectionIndex = 0
+        var minInsertIndex = self.sections.count
+        
+        for i in (0..<newSectionsCount) {
+            if let insertItem = insertItems[i] {
+                buffer.updateValue(insertItem, forKey: i)
+                if i < minInsertIndex { minInsertIndex = i }
+            } else {
+                buffer.updateValue(self.sections[storageSectionIndex]!, forKey: i)
+                storageSectionIndex += 1
+            }
+        }
+        
+        self.sections = buffer
+        
+        updateSectionsIndexPaths(startWithIndex: minInsertIndex)
+        
+        return IndexSet(insertIndexes)
     }
     
     func updateHeader(_ headerItem: GCIndexPathable, atSection section: Int) {
-        fatalError()
+        setEmpySectionIfNeeded(index: section)
+        sections[section]!.headerItem = headerItem
     }
     
+    func updateFooter(_ footerItem: GCIndexPathable, atSection section: Int) {
+        setEmpySectionIfNeeded(index: section)
+        sections[section]!.footerItem = footerItem
+    }
 }
 
 
@@ -243,7 +256,6 @@ public extension GridSource {
         
         return removeIndexPaths
     }
-    
 }
 
 
@@ -252,7 +264,7 @@ private extension GridSource {
     
     func setEmpySectionIfNeeded(index: Int) {
         guard sections[index] == nil else { return }
-        let emptySection = GridSection(headerItem: nil, items: [], footerItem: nil)
+        let emptySection = GridSection(header: nil, items: [], footer: nil)
         sections.updateValue(emptySection, forKey: index)
     }
     
@@ -265,6 +277,21 @@ private extension GridSource {
         return dict
     }
     
+    func createIndexesSections(sections: [GridSection], indexes: [Int]) -> [Int: GridSection] {
+        var dict: [Int: GridSection] = [:]
+        dict.reserveCapacity(indexes.count)
+        indexes.enumerated().forEach({
+            dict.updateValue(sections[$0], forKey: $1)
+        })
+        return dict
+    }
+    
+    func updateSectionsIndexPaths(startWithIndex index: Int) {
+        (index..<sections.count).forEach {
+            let updatedSection = GridSection(section: sections[$0]!, index: $0)
+            sections.updateValue(updatedSection, forKey: $0)
+        }
+    }
 }
 
 
@@ -277,5 +304,4 @@ fileprivate extension GridSection {
             .enumerated()
             .map({ $1.copy(type: .cell, newIndexPath: IndexPath(item: $0, section: index)) })
     }
-    
 }

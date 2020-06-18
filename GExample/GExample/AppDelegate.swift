@@ -25,6 +25,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private func createTabBar() -> UITabBarController {
         
+        /// G Table Example
+        
         let tableExampleView = GTableExampleViewController()
         let tableExampleViewModel = GTableExampleViewModel()
         
@@ -33,9 +35,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         tableExampleView.tabBarItem = UITabBarItem(title: "Table", image: nil, selectedImage: nil)
         
+        
+        // G Collection example
+        
+        let collectionExampleView = GCollectionExampleViewController()
+        let collectionExampleViewModel = GCollectionExampleViewModel()
+        
+        collectionExampleView.viewModel = collectionExampleViewModel
+        collectionExampleViewModel.view = collectionExampleView
+         
+        collectionExampleView.tabBarItem = UITabBarItem(title: "Collection", image: nil, selectedImage: nil)
+        
+        
+        // Tabs
+        
         let tabBar = UITabBarController()
         tabBar.viewControllers = [
-            tableExampleView
+            tableExampleView,
+            collectionExampleView
         ]
         
         return tabBar

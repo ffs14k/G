@@ -26,10 +26,9 @@ public protocol GridSourceProtocol: AnyObject {
     
     func reloadData(sections: [GridSection])
     
-    func appendSections(_ sections: [GridSection]) -> Range<Int>
+    func appendSections(_ sections: [GridSection]) -> IndexSet
     
-//    TODO
-//    func insertSections(_ sections: [GridSection], pattern: GridSourceMatchPattern) -> (insert: [Int], reload: [Int])
+    func insertSections(_ sections: [GridSection], pattern: GridSourceMatchPattern) -> IndexSet
     
 //    TODO
 //    func reloadSections(_ sections: GridSection, pattern: GridSourceMatchPattern) -> [Int]
@@ -53,12 +52,10 @@ public protocol GridSourceProtocol: AnyObject {
     func updateHeader(_ headerItem: GCIndexPathable, atSection section: Int)
     
     func updateFooter(_ footerItem: GCIndexPathable, atSection section: Int)
-    
 }
 
 public enum GridSourceMatchPattern {
     
     case startWithIndex(_ index: Int)
     case matchIndexes(_ indexes: [Int])
-    
 }

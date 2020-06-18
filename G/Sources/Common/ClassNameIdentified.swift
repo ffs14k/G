@@ -11,7 +11,6 @@ import UIKit
 protocol ClassNameIdentified {
     
     static var className: String { get }
-    
 }
 
 extension UIView: ClassNameIdentified {
@@ -19,5 +18,4 @@ extension UIView: ClassNameIdentified {
     static var className: String {
         return String(describing: self)
     }
-    
 }

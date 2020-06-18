@@ -16,9 +16,12 @@
 		4486B2BE241595CA00306926 /* TitleTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4486B2BD241595CA00306926 /* TitleTableCell.swift */; };
 		4486B2C22415973E00306926 /* TitleCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4486B2C12415973E00306926 /* TitleCellModel.swift */; };
 		4486B2C6241597F800306926 /* TitleHeaderTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4486B2C5241597F800306926 /* TitleHeaderTableCell.swift */; };
-		4486B2C8241598B700306926 /* GTableCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4486B2C7241598B700306926 /* GTableCellModel.swift */; };
 		4486B2CC2415DBD400306926 /* G.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4486B2CB2415DBD400306926 /* G.framework */; };
 		4486B2CD2415DBD400306926 /* G.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4486B2CB2415DBD400306926 /* G.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		47CE55B824704FE600D8FA89 /* GCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CE55B724704FE600D8FA89 /* GCViewController.swift */; };
+		47CE55BC247053F400D8FA89 /* GCollectionExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CE55BB247053F400D8FA89 /* GCollectionExampleViewController.swift */; };
+		47CE55BE2470548200D8FA89 /* GCollectionExampleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CE55BD2470548200D8FA89 /* GCollectionExampleViewModel.swift */; };
+		47CE55C12470559A00D8FA89 /* TitleCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CE55C02470559A00D8FA89 /* TitleCollectionCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -47,8 +50,11 @@
 		4486B2BD241595CA00306926 /* TitleTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleTableCell.swift; sourceTree = "<group>"; };
 		4486B2C12415973E00306926 /* TitleCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleCellModel.swift; sourceTree = "<group>"; };
 		4486B2C5241597F800306926 /* TitleHeaderTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleHeaderTableCell.swift; sourceTree = "<group>"; };
-		4486B2C7241598B700306926 /* GTableCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GTableCellModel.swift; sourceTree = "<group>"; };
 		4486B2CB2415DBD400306926 /* G.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = G.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		47CE55B724704FE600D8FA89 /* GCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCViewController.swift; sourceTree = "<group>"; };
+		47CE55BB247053F400D8FA89 /* GCollectionExampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCollectionExampleViewController.swift; sourceTree = "<group>"; };
+		47CE55BD2470548200D8FA89 /* GCollectionExampleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCollectionExampleViewModel.swift; sourceTree = "<group>"; };
+		47CE55C02470559A00D8FA89 /* TitleCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleCollectionCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,32 +89,33 @@
 		4486B2992415773800306926 /* GExample */ = {
 			isa = PBXGroup;
 			children = (
-				4486B2C32415974D00306926 /* Models */,
-				4486B2B52415782100306926 /* GBaseControllers */,
-				4486B2B4241577FF00306926 /* GTableView */,
+				4486B2A82415773D00306926 /* Info.plist */,
 				4486B29A2415773800306926 /* AppDelegate.swift */,
 				4486B2A32415773D00306926 /* Assets.xcassets */,
+				4486B2B52415782100306926 /* GBaseControllers */,
+				47CE55BA2470537300D8FA89 /* GCollectionViewExample */,
+				4486B2B4241577FF00306926 /* GTableViewExample */,
 				4486B2A52415773D00306926 /* LaunchScreen.storyboard */,
-				4486B2A82415773D00306926 /* Info.plist */,
+				4486B2C32415974D00306926 /* Models */,
 			);
 			path = GExample;
 			sourceTree = "<group>";
 		};
-		4486B2B4241577FF00306926 /* GTableView */ = {
+		4486B2B4241577FF00306926 /* GTableViewExample */ = {
 			isa = PBXGroup;
 			children = (
 				4486B2BC241582AE00306926 /* Cells */,
 				4486B2B8241578DA00306926 /* GTableExampleViewController.swift */,
 				4486B2BA2415790100306926 /* GTableExampleViewModel.swift */,
-				4486B2C7241598B700306926 /* GTableCellModel.swift */,
 			);
-			path = GTableView;
+			path = GTableViewExample;
 			sourceTree = "<group>";
 		};
 		4486B2B52415782100306926 /* GBaseControllers */ = {
 			isa = PBXGroup;
 			children = (
 				4486B2B62415784700306926 /* GTViewController.swift */,
+				47CE55B724704FE600D8FA89 /* GCViewController.swift */,
 			);
 			path = GBaseControllers;
 			sourceTree = "<group>";
@@ -136,6 +143,24 @@
 				4486B2CB2415DBD400306926 /* G.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		47CE55BA2470537300D8FA89 /* GCollectionViewExample */ = {
+			isa = PBXGroup;
+			children = (
+				47CE55BF2470558D00D8FA89 /* Cells */,
+				47CE55BB247053F400D8FA89 /* GCollectionExampleViewController.swift */,
+				47CE55BD2470548200D8FA89 /* GCollectionExampleViewModel.swift */,
+			);
+			path = GCollectionViewExample;
+			sourceTree = "<group>";
+		};
+		47CE55BF2470558D00D8FA89 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				47CE55C02470559A00D8FA89 /* TitleCollectionCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -209,12 +234,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4486B2C8241598B700306926 /* GTableCellModel.swift in Sources */,
 				4486B29B2415773800306926 /* AppDelegate.swift in Sources */,
+				47CE55BE2470548200D8FA89 /* GCollectionExampleViewModel.swift in Sources */,
 				4486B2B72415784700306926 /* GTViewController.swift in Sources */,
 				4486B2C22415973E00306926 /* TitleCellModel.swift in Sources */,
+				47CE55C12470559A00D8FA89 /* TitleCollectionCell.swift in Sources */,
 				4486B2BB2415790100306926 /* GTableExampleViewModel.swift in Sources */,
+				47CE55BC247053F400D8FA89 /* GCollectionExampleViewController.swift in Sources */,
 				4486B2BE241595CA00306926 /* TitleTableCell.swift in Sources */,
+				47CE55B824704FE600D8FA89 /* GCViewController.swift in Sources */,
 				4486B2C6241597F800306926 /* TitleHeaderTableCell.swift in Sources */,
 				4486B2B9241578DA00306926 /* GTableExampleViewController.swift in Sources */,
 			);

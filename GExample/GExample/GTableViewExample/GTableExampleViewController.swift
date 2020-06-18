@@ -27,13 +27,12 @@ final class GTableExampleViewController: GTViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-        
-//        viewModel?.viewIsReady()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        viewModel?.viewIsReady()
+        
+        viewModel?.viewDidAppear()
     }
     
 }
