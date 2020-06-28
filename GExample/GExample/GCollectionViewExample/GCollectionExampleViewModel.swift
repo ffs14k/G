@@ -61,22 +61,20 @@ extension GCollectionExampleViewModel: GCollectionExampleViewOutput {
         
         testApi(delay: 1) { [weak self] in
             guard let self = self else { return }
-            let indexes = [0, 2]
+            let indexes = [0, 1, 2, 3, 4]
             let cells = self.createCells(text: "Inserted at index", indexes: indexes)
             self.view?.gridManager.insertCells(cells, section: 0, pattern: .matchIndexes(indexes))
         }
         
-        testApi(delay: 2.5) { [weak self] in
+        testApi(delay: 2) { [weak self] in
             guard let self = self else { return }
             let startIndex = self.view?.gridManager.cellsCount(for: 0) ?? 0
-            let cells = self.createCells(text: "Inserted at index", indexes: Array(0..<3))
+            let cells = self.createCells(text: "Inserted at index", indexes: Array(0..<8))
             self.view?.gridManager.insertCells(cells, section: 0, pattern: .startWithIndex(startIndex))
         }
         
-        testApi(delay: 4) { [weak self] in
-//            #warning("Here is a !* mysterious *! crash. Appears in rare cases")
-//            let indexes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
-            let indexes = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+        testApi(delay: 3.5) { [weak self] in
+            let indexes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 8, 8]
             self?.view?.gridManager.deleteCells(section: 0, pattern: .matchIndexes(indexes))
         }
         

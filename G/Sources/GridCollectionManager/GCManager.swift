@@ -62,6 +62,9 @@ public final class GCManager: GCManagerProtocol {
     
     public unowned var collectionView: UICollectionView!
     
+    public var onAnimatedRawReloadWaitingClosure: (() -> Void)?
+    public var onAnimatedRawReloadStartClosure: (() -> Void)?
+    
     private let sizeProvider: GridCellSizeProvider
     private let gridSource: GridSourceProtocol
     private var reloadAnimator: GridReloadAnimatorManager?
@@ -251,6 +254,7 @@ private extension GCManager {
     }
     
     private func waitForCellsLoaded() {
+        onAnimatedRawReloadWaitingClosure?()
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             
@@ -262,6 +266,7 @@ private extension GCManager {
                 return
             }
             
+            self.onAnimatedRawReloadStartClosure?()
             self.reloadAnimator?.handleCellsAnimation(completion: { self.reloadAnimator = nil })
         }
     }

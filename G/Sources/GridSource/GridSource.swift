@@ -232,7 +232,7 @@ public extension GridSource {
             
             removeIndexPaths.reserveCapacity(indexes.count)
             
-            let removeIndexedIndexes = Dictionary(uniqueKeysWithValues: indexes.lazy.map({ ($0, $0) }))
+            let removeIndexedIndexes = Dictionary(uniqueKeysWithValues: Set(indexes).lazy.map({ ($0, $0) }))
             
             var buffer: [GCIndexPathable] = []
             buffer.reserveCapacity(itemsCount - indexes.count)
