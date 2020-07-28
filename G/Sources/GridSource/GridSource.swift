@@ -103,6 +103,33 @@ public extension GridSource {
         return IndexSet(insertIndexes)
     }
     
+    func deleteSections(pattern: GridSourceMatchPattern) -> IndexSet {
+        let deleteIndexSet: IndexSet
+        switch pattern {
+        case .startWithIndex(let index):
+            guard index < sections.keys.count else { return IndexSet([]) }
+            deleteIndexSet = IndexSet(index..<sections.keys.count)
+        case .matchIndexes(let indexes):
+            deleteIndexSet = IndexSet(indexes)
+        }
+        
+        let newSectionsCount = sections.keys.count - deleteIndexSet.count
+        var buffer: [Int: GridSection] = [:]
+        buffer.reserveCapacity(newSectionsCount)
+        
+        var lastIndex: Int = 0
+        sections.keys.sorted(by: < ).forEach { index in
+            guard !deleteIndexSet.contains(index) else { return }
+            let updatedSection = GridSection(section: sections[index]!, index: lastIndex)
+            buffer[lastIndex] = updatedSection
+            lastIndex += 1
+        }
+        
+        sections = buffer
+        
+        return deleteIndexSet
+    }
+    
     func updateHeader(_ headerItem: GCIndexPathable, atSection section: Int) {
         setEmpySectionIfNeeded(index: section)
         sections[section]!.headerItem = headerItem

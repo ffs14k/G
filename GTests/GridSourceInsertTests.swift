@@ -171,20 +171,20 @@ final class GridSourceInsertTests: XCTestCase {
         
         let gridSource = GridSource()
         
-        let test1_section = GridSection(header: nil, cells: [], footer: nil)
+        let test1_section = GridSection(header: nil, items: [], footer: nil)
         let test1_indexSet_verif = IndexSet(arrayLiteral: 0)
         
-        let test2_section = GridSection(header: nil, cells: GTests.cellProviders(count: 1, startId: 0), footer: nil)
+        let test2_section = GridSection(header: nil, items: GTests.cellProviders(count: 1, startId: 0), footer: nil)
         let test2_indexSet_verif = IndexSet(arrayLiteral: 0)
         
         let test3_sections = (0..<5).map({ i in
-            GridSection(header: nil, cells: GTests.cellProviders(count: i + 2, startId: 0), footer: nil)
+            GridSection(header: nil, items: GTests.cellProviders(count: i + 2, startId: 0), footer: nil)
         })
         let test3_indexSet_verif = IndexSet(arrayLiteral: 1, 2, 3, 4, 5)
         
         let test4_section_indexes = [1, 4, 5, 6]
         let test4_sections = test4_section_indexes.map({ i in
-            GridSection(header: nil, cells: GTests.cellProviders(count: i + 50, startId: 0), footer: nil)
+            GridSection(header: nil, items: GTests.cellProviders(count: i + 50, startId: 0), footer: nil)
         })
         let test4_indexSet_verif = IndexSet(test4_section_indexes)
         

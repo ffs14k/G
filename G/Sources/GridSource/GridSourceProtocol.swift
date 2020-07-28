@@ -30,11 +30,10 @@ public protocol GridSourceProtocol: AnyObject {
     
     func insertSections(_ sections: [GridSection], pattern: GridSourceMatchPattern) -> IndexSet
     
+    func deleteSections(pattern: GridSourceMatchPattern) -> IndexSet
+    
 //    TODO
 //    func reloadSections(_ sections: GridSection, pattern: GridSourceMatchPattern) -> [Int]
-
-//    TODO
-//    func deleteSection(pattern: GridSourceMatchPattern) -> (delete: [Int], reload: [Int])
     
     func appendItems(_ items: [GCIndexPathable], section: Int) -> [IndexPath]
     

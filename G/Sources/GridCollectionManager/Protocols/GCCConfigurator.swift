@@ -8,7 +8,7 @@
 
 import UIKit
 
-// Grid Table Cell
+// Grid Collection Cell
 public protocol GCCConfigurator {
     
     func size(in rect: CGRect, sizeProvider: GridCellSizeProvider) -> CGSize
@@ -18,4 +18,6 @@ public protocol GCCConfigurator {
     func configureHeaderFooter(_ collectionView: UICollectionView, kind: String) -> UICollectionReusableView
     
     func updateCell(_ cell: UICollectionViewCell)
+    
+    func updateHeaderFooter(_ cell: UICollectionReusableView)
 }

@@ -70,4 +70,8 @@ public struct GCCellModel<Modelable: GCCSetupable>: GCCell {
         (cell as! Modelable).setup(gccModel: self)
     }
     
+    public func updateHeaderFooter(_ cell: UICollectionReusableView) {
+        (cell as! Modelable).setup(gccModel: self)
+    }
+    
 }

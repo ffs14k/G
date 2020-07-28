@@ -11,7 +11,60 @@ import XCTest
 
 final class GridSourceRemoveTests: XCTestCase {
     
-    func testRemoveStartWithIndexItems() {
+    func testRemoveSectionsWithMatchIndexes() {
+        
+        let gridSource = GridSource()
+        
+        let sections: [GridSection] = [0, 1, 2, 3, 4, 5].map {
+            return GridSection(items: GTests.cells(count: 1, startId: $0))
+        }
+        
+        gridSource.reloadData(sections: sections)
+        
+        let deleteIndexSet = gridSource.deleteSections(pattern: .matchIndexes([0, 1, 2, 5]))
+        
+        let testDeleteIndexSet = IndexSet(arrayLiteral: 0, 1, 2, 5)
+        
+        XCTAssertEqual(deleteIndexSet, testDeleteIndexSet)
+        XCTAssertEqual((0..<gridSource.sectionsCount), (0..<2))
+        
+        func testCellId(section: Int, shiftedId: Int) {
+            let item = gridSource.item(section: section, item: 0) as! GTests.TestCellModel
+            XCTAssertEqual(item.id, shiftedId)
+        }
+        
+        testCellId(section: 0, shiftedId: 3)
+        testCellId(section: 1, shiftedId: 4)
+    }
+    
+    func testRemoveSectionsWithStartWithIndex() {
+        
+        let gridSource = GridSource()
+        
+        let sections: [GridSection] = [0, 1, 2, 3, 4, 5].map {
+            return GridSection(items: GTests.cells(count: 1, startId: $0))
+        }
+        
+        gridSource.reloadData(sections: sections)
+        
+        let deleteIndexSet = gridSource.deleteSections(pattern: .startWithIndex(3))
+        
+        let testDeleteIndexSet = IndexSet(arrayLiteral: 3, 4, 5)
+        
+        XCTAssertEqual(deleteIndexSet, testDeleteIndexSet)
+        XCTAssertEqual((0..<gridSource.sectionsCount), (0..<3))
+        
+        func testCellId(section: Int, shiftedId: Int) {
+            let item = gridSource.item(section: section, item: 0) as! GTests.TestCellModel
+            XCTAssertEqual(item.id, shiftedId)
+        }
+        
+        testCellId(section: 0, shiftedId: 0)
+        testCellId(section: 1, shiftedId: 1)
+        testCellId(section: 2, shiftedId: 2)
+    }
+    
+    func testRemoveCellsWithStartWithIndex() {
         
         let gridSource = GridSource()
         let appenCells = GTests.cells(count: 10, startId: 0)
@@ -40,7 +93,7 @@ final class GridSourceRemoveTests: XCTestCase {
         
     }
     
-    func testRemoveMatchIndexesItems() {
+    func testRemoveCellWithMatchIndexes() {
         
         let gridSource = GridSource()
         let appenCells = GTests.cells(count: 10, startId: 0)
@@ -67,7 +120,6 @@ final class GridSourceRemoveTests: XCTestCase {
         
         XCTAssertEqual(remove_ips3.count, 5)
         XCTAssertEqual(gridSource.itemsCount(section: 0)!, 0)
-        
     }
     
 }

@@ -9,17 +9,13 @@
 import XCTest
 @testable import G
 
-class GTests: XCTestCase {
+class GTests {
     
     struct TestCellModel: GCIndexPathable, Equatable {
         
         let id: Int
         var gcIndexPath: GCIndexPath
         
-    }
-    
-    struct TestCellModelProvider: GTCell {
-        var gtcModel: GTCell
     }
     
     static func cells(count: Int, startId: Int, section: Int = 0) -> [TestCellModel] {
@@ -31,12 +27,12 @@ class GTests: XCTestCase {
         })
     }
     
-    static func cellProviders(count: Int, startId: Int, section: Int = 0) -> [TestCellModelProvider] {
+    static func cellProviders(count: Int, startId: Int, section: Int = 0) -> [GTCell] {
         var id = startId
-        return (0..<count).map({ idx -> TestCellModelProvider in
+        return (0..<count).map({ idx -> GTCell in
             let model = GTCellModel<TestTableCell>.init(model: id)
             id += 1
-            return TestCellModelProvider(gtcModel: model)
+            return model
         })
     }
     

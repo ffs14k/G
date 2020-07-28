@@ -9,13 +9,13 @@
 public struct GridSection {
     
     /// Table / Collection section's header
-    var headerItem: GCIndexPathable?
+    public internal(set) var headerItem: GCIndexPathable?
     
     /// Table / Collection section's cells
-    var items: [GCIndexPathable]
+    public internal(set) var items: [GCIndexPathable]
     
     /// Table / Collection section's footer
-    var footerItem: GCIndexPathable?
+    public internal(set) var footerItem: GCIndexPathable?
     
     
     /// Base init for Grid Section

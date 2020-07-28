@@ -28,11 +28,10 @@ public protocol GCManagerProtocol {
     
     func insertSections(_ sections: [GridSection], _ pattern: GridSourceMatchPattern)
     
-    //    TODO
-    //    func reloadSections(_ sections: [GridSection], _ pattern: GridSourceMatchPattern, with animation: Animation?)
+    func deleteSections(pattern: GridSourceMatchPattern)
     
     //    TODO
-    //    func deleteSections(_ pattern: GridSourceMatchPattern, animation: Animation?)
+    //    func reloadSections(_ sections: [GridSection], _ pattern: GridSourceMatchPattern, with animation: Animation?)
     
     func appendCells(_ cells: [GCCell], section: Int)
     
@@ -179,38 +178,37 @@ public extension GCManager {
     }
     
     func appendSections(_ sections: [GridSection]) {
-        
         let appendIndexSet = gridSource.appendSections(sections)
         collectionView.insertSections(appendIndexSet)
     }
     
     func insertSections(_ sections: [GridSection], _ pattern: GridSourceMatchPattern) {
-        
         let insertIndexSet = gridSource.insertSections(sections, pattern: pattern)
         collectionView.insertSections(insertIndexSet)
     }
     
+    func deleteSections(pattern: GridSourceMatchPattern) {
+        let deleteIndexSet = gridSource.deleteSections(pattern: pattern)
+        collectionView.deleteSections(deleteIndexSet)
+    }
+    
     func appendCells(_ cells: [GCCell], section: Int) {
-        
         let appendIndexPaths = gridSource.appendItems(cells, section: section)
         collectionView.insertItems(at: appendIndexPaths)
     }
     
     func insertCells(_ cells: [GCCell], section: Int, pattern: GridSourceMatchPattern) {
-        
         let insertIndexPaths = gridSource.insertItems(cells, section: section, pattern: pattern)
         collectionView.insertItems(at: insertIndexPaths)
         updateVisibleCellsIndexPaths()
     }
     
     func reloadCells(_ cells: [GCCell], section: Int, pattern: GridSourceMatchPattern) {
-        
         let reloadIndexPaths = gridSource.reloadItems(cells, section: 0, pattern: pattern)
         collectionView.reloadItems(at: reloadIndexPaths)
     }
     
     func deleteCells(section: Int, pattern: GridSourceMatchPattern) {
-        
         let deleteIndexPaths = gridSource.deleteItems(section: section, pattern: pattern)
         collectionView.deleteItems(at: deleteIndexPaths)
         updateVisibleCellsIndexPaths()
@@ -220,24 +218,24 @@ public extension GCManager {
         
         gridSource.updateHeader(header, atSection: section)
         
-        guard let header = self.header(for: section) else {
+        let indexPath = IndexPath(item: 0, section: section)
+        if let headerCell = collectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: indexPath) {
+            self.header(for: section)?.updateHeaderFooter(headerCell)
+        } else {
             collectionView.reloadSections(IndexSet(arrayLiteral: section))
-            return
         }
-        
-        _ = header.configureHeaderFooter(collectionView, kind: UICollectionView.elementKindSectionHeader)
     }
     
     func updateFooter(_ footer: GCCell, section: Int) {
         
         gridSource.updateFooter(footer, atSection: section)
         
-        guard let footer = self.footer(for: section) else {
+        let indexPath = IndexPath(item: 0, section: section)
+        if let footerCell = collectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionFooter, at: indexPath) {
+            self.footer(for: section)?.updateHeaderFooter(footerCell)
+        } else {
             collectionView.reloadSections(IndexSet(arrayLiteral: section))
-            return
         }
-        
-        _ = footer.configureHeaderFooter(collectionView, kind: UICollectionView.elementKindSectionFooter)
     }
 }
 
