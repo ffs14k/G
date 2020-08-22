@@ -59,14 +59,20 @@ public extension GCManagerProtocol {
 
 public final class GCManager: GCManagerProtocol {
     
-    public unowned var collectionView: UICollectionView!
+    // MARK: - Public properties
     
-    public var onAnimatedRawReloadWaitingClosure: (() -> Void)?
-    public var onAnimatedRawReloadStartClosure: (() -> Void)?
+    public unowned var collectionView: UICollectionView!
     
     private let sizeProvider: GridCellSizeProvider
     private let gridSource: GridSourceProtocol
+    
+    // Grid Custom Reload Animation
+    
     private var reloadAnimator: GridReloadAnimatorManager?
+    private var endReloadCatchingTimer: Timer?
+    
+    
+    // MARK: - Init
     
     public init(gridSource: GridSourceProtocol = GridSource(),
                 sizeProvider: GridCellSizeProvider = GridCellSizeProviderImp()) {
@@ -111,11 +117,13 @@ public final class GCManager: GCManagerProtocol {
     
     /// Raw reload animator
     public func willDisplayCell(_ cell: UICollectionViewCell, section: Int, gridRect: CGRect) {
-        reloadAnimator?.willDisplay(cell, type: .cell, section: section, gridRect: gridRect)
+        guard let reloadAnimator = reloadAnimator else { return }
+        reloadAnimator.willDisplay(cell, type: .cell, section: section, gridRect: gridRect)
     }
     
     public func willDisplayHeaderFooter(_ headerFooter: UICollectionReusableView, kind: String, section: Int, gridRect: CGRect) {
         guard let reloadAnimator = reloadAnimator else { return }
+        
         switch kind {
         case UICollectionView.elementKindSectionHeader:
             reloadAnimator.willDisplay(headerFooter, type: .header, section: section, gridRect: gridRect)
@@ -169,11 +177,13 @@ public extension GCManager {
             return
         }
         
-        reloadAnimator = animator?.animatorManager
-        collectionView.reloadData()
+        if let animator = animator {
+            reloadAnimator = animator.animatorManager
+            createEndReloadCatchingTimer()
+        }
         
-        if let _ = reloadAnimator {
-            waitForCellsLoaded()
+        UIView.animate(withDuration: 0.01) {
+            self.collectionView.reloadData()
         }
     }
     
@@ -251,21 +261,43 @@ private extension GCManager {
         })
     }
     
-    private func waitForCellsLoaded() {
-        onAnimatedRawReloadWaitingClosure?()
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            
-            let isHeadersReloaded = !self.collectionView.visibleSupplementaryViews(ofKind: UICollectionView.elementKindSectionHeader).isEmpty
-            let isCellsReloaded = !self.collectionView.visibleCells.isEmpty
-            
-            guard isHeadersReloaded || isCellsReloaded else {
-                self.waitForCellsLoaded()
-                return
+    private func createEndReloadCatchingTimer() {
+        collectionView.alpha = 0
+        
+        let block: (Timer) -> Void = { [weak self] timer in
+            self?.handleGridReloadAnimation()
+            if self?.endReloadCatchingTimer == nil {
+                timer.invalidate()
             }
-            
-            self.onAnimatedRawReloadStartClosure?()
-            self.reloadAnimator?.handleCellsAnimation(completion: { self.reloadAnimator = nil })
+        }
+        endReloadCatchingTimer = Timer.scheduledTimer(withTimeInterval: 1 / 24, repeats: true, block: block)
+        endReloadCatchingTimer!.fire()
+    }
+    
+    private func handleGridReloadAnimation() {
+        guard self.isCellsReloaded else {
+            return
+        }
+        
+        self.releaseEndReloadCatchingTimer()
+        self.reloadAnimator!.handleCellsAnimation { [weak self] in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.collectionView.alpha = 1
+            }
+            self.reloadAnimator = nil
         }
     }
+    
+    private func releaseEndReloadCatchingTimer() {
+        endReloadCatchingTimer!.invalidate()
+        endReloadCatchingTimer = nil
+    }
+    
+    private var isCellsReloaded: Bool {
+        let isHeadersReloaded = !self.collectionView.visibleSupplementaryViews(ofKind: UICollectionView.elementKindSectionHeader).isEmpty
+        let isCellsReloaded = !self.collectionView.visibleCells.isEmpty
+        return isHeadersReloaded || isCellsReloaded
+    }
+    
 }

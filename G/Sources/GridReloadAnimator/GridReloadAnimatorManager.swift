@@ -13,6 +13,7 @@ public protocol GridReloadAnimatorManager: AnyObject {
     var animator: GridReloadAnimator { get }
 
     func willDisplay(_ cell: UIView, type: GCIndexPath.CellType, section: Int, gridRect: CGRect)
+    
     func handleCellsAnimation(completion: () -> Void)
 }
 
@@ -58,9 +59,10 @@ open class GridReloadAnimatorManagerImp: GridReloadAnimatorManager {
     
     open func handleCellsAnimation(completion: () -> Void) {
         
-        var headerDelay: TimeInterval = 0
-        var cellDelay: TimeInterval = 0
-        var footerDelay: TimeInterval = 0
+        let startFrame: TimeInterval = 1 / 60
+        var headerDelay: TimeInterval = startFrame
+        var cellDelay: TimeInterval = startFrame
+        var footerDelay: TimeInterval = startFrame
         
         for (idx, section) in sections.sorted(by: { $0.key < $1.key }) {
             
