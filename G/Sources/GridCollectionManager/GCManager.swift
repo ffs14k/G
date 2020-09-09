@@ -170,12 +170,14 @@ public extension GCManager {
     
     func reloadData(sections: [GridSection], animator: GridReloadAnimatorFactory?) {
         
-        gridSource.reloadData(sections: sections)
+        gridSource.reloadData(sections: [])
+        collectionView.reloadData()
         
         guard !sections.isEmpty else {
-            collectionView.reloadData()
             return
         }
+        
+        gridSource.reloadData(sections: sections)
         
         if let animator = animator {
             reloadAnimator = animator.animatorManager
