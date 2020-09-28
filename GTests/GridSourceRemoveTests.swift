@@ -106,7 +106,11 @@ final class GridSourceRemoveTests: XCTestCase {
         XCTAssertEqual(remove_ips1.count, 4)
         XCTAssertEqual(gridSource.itemsCount(section: 0)!, 6)
         GTests.iterateCells(source: gridSource, section: 0) { idx, model in
-            XCTAssertEqual(idx, model.gcIndexPath.indexPath.item)
+            if idx == 5 {
+                XCTAssertEqual(9, model.id)
+            } else {
+                XCTAssertEqual(idx, model.id)
+            }
             XCTAssertEqual(IndexPath(item: idx, section: 0), model.gcIndexPath.indexPath)
         }
         
