@@ -264,18 +264,22 @@ public extension GridSource {
             var buffer: [GCIndexPathable] = []
             buffer.reserveCapacity(itemsCount - indexes.count)
             
-            var itemsIndex = 0
+            var shiftedIndex = 0
             
-            (0..<itemsCount).forEach {
+            (0..<itemsCount).forEach { i in
                 
-                guard removeIndexedIndexes[$0] == nil else {
-                    removeIndexPaths.append(IndexPath(item: $0, section: section))
-                    itemsIndex += 1
+                guard removeIndexedIndexes[i] == nil else {
+                    removeIndexPaths.append(IndexPath(item: i, section: section))
                     return
                 }
                 
-                buffer.append(sections[section]!.items[itemsIndex])
-                itemsIndex += 1
+                let newItem = sections[section]!.items[i].copy(
+                    type: .cell,
+                    newIndexPath: IndexPath(item: shiftedIndex, section: section)
+                )
+                
+                buffer.append(newItem)
+                shiftedIndex += 1
             }
             
             sections[section]!.items = buffer

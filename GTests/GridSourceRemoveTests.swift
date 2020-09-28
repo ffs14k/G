@@ -101,19 +101,19 @@ final class GridSourceRemoveTests: XCTestCase {
         
         
         // Test 1
-        let remove_ips1 = gridSource.deleteItems(section: 0, pattern: .matchIndexes([5, 6, 7, 8, 9]))
+        let remove_ips1 = gridSource.deleteItems(section: 0, pattern: .matchIndexes([5, 6, 7, 8]))
         
-        XCTAssertEqual(remove_ips1.count, 5)
-        XCTAssertEqual(gridSource.itemsCount(section: 0)!, 5)
+        XCTAssertEqual(remove_ips1.count, 4)
+        XCTAssertEqual(gridSource.itemsCount(section: 0)!, 6)
         GTests.iterateCells(source: gridSource, section: 0) { idx, model in
-            XCTAssertEqual(idx, model.id)
+            XCTAssertEqual(idx, model.gcIndexPath.indexPath.item)
             XCTAssertEqual(IndexPath(item: idx, section: 0), model.gcIndexPath.indexPath)
         }
         
         // Test 2
         let remove_ips2 = gridSource.deleteItems(section: 0, pattern: .matchIndexes([5]))
         
-        XCTAssertEqual(remove_ips2.count, 0)
+        XCTAssertEqual(remove_ips2.count, 1)
         
         // Test 3
         let remove_ips3 = gridSource.deleteItems(section: 0, pattern: .matchIndexes([0, 1, 2, 3, 4]))
