@@ -30,14 +30,11 @@ extension GridCellSizeProviderImp: GridCellSizeProvider {
         
         let id = S.className
         
-//        guard sizeCache[gtcModel.gcIndexPath] == nil else {
-//            return sizeCache[gtcModel.gcIndexPath]!
-//        }
-        
         if prototypeCells[id] == nil {
             prototypeCells.updateValue(S.createSelf(), forKey: id)
         }
-
+        
+        (prototypeCells[id] as! S).setup(model: gtcModel.model)
         let size = (prototypeCells[id] as! S).size(in: rect, model: gtcModel.model)
 
         sizeCache.updateValue(size, forKey: gtcModel.gcIndexPath)
@@ -45,18 +42,15 @@ extension GridCellSizeProviderImp: GridCellSizeProvider {
         return size
     }
     
-    public func size<S>(in rect: CGRect, gccModel: GCCellModel<S>) -> CGSize where S : GCCSetupable {
+    public func size<S: GCCSetupable>(in rect: CGRect, gccModel: GCCellModel<S>) -> CGSize {
         
         let id = S.className
-        
-//        guard sizeCache[gccModel.gcIndexPath] == nil else {
-//            return sizeCache[gccModel.gcIndexPath]!
-//        }
         
         if prototypeCells[id] == nil {
             prototypeCells.updateValue(S.createSelf(), forKey: id)
         }
-
+        
+        (prototypeCells[id] as! S).setup(model: gccModel.model)
         let size = (prototypeCells[id] as! S).size(in: rect, model: gccModel.model)
 
         sizeCache.updateValue(size, forKey: gccModel.gcIndexPath)
