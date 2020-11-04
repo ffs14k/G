@@ -34,7 +34,7 @@ extension GridCellSizeProviderImp: GridCellSizeProvider {
             prototypeCells.updateValue(S.createSelf(), forKey: id)
         }
         
-        (prototypeCells[id] as! S).setup(model: gtcModel.model)
+        (prototypeCells[id] as! S).setup(gtcModel: gtcModel)
         let size = (prototypeCells[id] as! S).size(in: rect, model: gtcModel.model)
 
         sizeCache.updateValue(size, forKey: gtcModel.gcIndexPath)
@@ -50,7 +50,7 @@ extension GridCellSizeProviderImp: GridCellSizeProvider {
             prototypeCells.updateValue(S.createSelf(), forKey: id)
         }
         
-        (prototypeCells[id] as! S).setup(model: gccModel.model)
+        (prototypeCells[id] as! S).setup(gccModel: gccModel)
         let size = (prototypeCells[id] as! S).size(in: rect, model: gccModel.model)
 
         sizeCache.updateValue(size, forKey: gccModel.gcIndexPath)

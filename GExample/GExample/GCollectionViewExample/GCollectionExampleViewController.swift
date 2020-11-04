@@ -17,6 +17,7 @@ final class GCollectionExampleViewController: GCViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = .white
         collectionView.backgroundColor = .white
         collectionView.allowsSelection = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false

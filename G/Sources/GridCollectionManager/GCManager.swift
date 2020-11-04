@@ -181,7 +181,7 @@ public extension GCManager {
         
         if let animator = animator {
             reloadAnimator = animator.animatorManager
-            createEndReloadCatchingTimer()
+            reloadDataAnimated()
         }
         
         UIView.animate(withDuration: 0.01) {
@@ -263,37 +263,27 @@ private extension GCManager {
         })
     }
     
-    private func createEndReloadCatchingTimer() {
+    private func reloadDataAnimated() {
         collectionView.alpha = 0
         
-        let block: (Timer) -> Void = { [weak self] timer in
-            self?.handleGridReloadAnimation()
-            if self?.endReloadCatchingTimer == nil {
-                timer.invalidate()
+        func createEndReloadCatchingTimer() {
+            Timer.scheduledTimer(withTimeInterval: 1 / 24, repeats: false) { [weak self] _ in
+                guard let self = self
+                      , self.isCellsReloaded else {
+                    createEndReloadCatchingTimer()
+                    return
+                }
+                
+                self.reloadAnimator!.handleCellsAnimation { [weak self] in
+                    guard let self = self else { return }
+                    DispatchQueue.main.async {
+                        self.collectionView.alpha = 1
+                    }
+                    self.reloadAnimator = nil
+                }
             }
         }
-        endReloadCatchingTimer = Timer.scheduledTimer(withTimeInterval: 1 / 24, repeats: true, block: block)
-        endReloadCatchingTimer!.fire()
-    }
-    
-    private func handleGridReloadAnimation() {
-        guard self.isCellsReloaded else {
-            return
-        }
-        
-        self.releaseEndReloadCatchingTimer()
-        self.reloadAnimator!.handleCellsAnimation { [weak self] in
-            guard let self = self else { return }
-            DispatchQueue.main.async {
-                self.collectionView.alpha = 1
-            }
-            self.reloadAnimator = nil
-        }
-    }
-    
-    private func releaseEndReloadCatchingTimer() {
-        endReloadCatchingTimer!.invalidate()
-        endReloadCatchingTimer = nil
+        createEndReloadCatchingTimer()
     }
     
     private var isCellsReloaded: Bool {

@@ -55,7 +55,7 @@ extension TitleCollectionCell: GCCSetupable {
         return TitleCollectionCell()
     }
     
-    // setup(gccModel: GCCellModel<Self>) call this method by default. Whatch `GCCSetupable`
+    // setup(gccModel: GCCellModel<Self>) call this method by default. Watch `GCCSetupable`
     func setup(model: TitleCellModel) {
         
         // !automatic updating indexPaths withing gccModel

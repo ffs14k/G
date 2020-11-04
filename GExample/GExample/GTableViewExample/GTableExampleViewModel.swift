@@ -72,12 +72,8 @@ extension GTableExampleViewModel: GTableExampleViewModelInput {
         }
         
         testApi(delay: 4) { [weak self] in
-//            #warning("Here is a !* mysterious *! crash. `Undefined` behaviour of UITableViewDatatSource")
-//            let indexes = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-//            let indexes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
-            
-//            let indexes = [4]
-//            self?.view?.gridManager.deleteCells(section: 0, pattern: .matchIndexes(indexes), animation: .left)
+            let indexes = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+            self?.view?.gridManager.deleteCells(section: 0, pattern: .matchIndexes(indexes), animation: .left)
         }
     }
     
