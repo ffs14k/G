@@ -69,8 +69,6 @@ public final class GCManager: GCManagerProtocol {
     // Grid Custom Reload Animation
     
     private var reloadAnimator: GridReloadAnimatorManager?
-    private var endReloadCatchingTimer: Timer?
-    
     
     // MARK: - Init
     
@@ -264,15 +262,20 @@ private extension GCManager {
     }
     
     private func reloadDataAnimated() {
-        collectionView.alpha = 0
+        
+        var isReloadingAnimated = false
         
         func createEndReloadCatchingTimer() {
             Timer.scheduledTimer(withTimeInterval: 1 / 24, repeats: false) { [weak self] _ in
-                guard let self = self
-                      , self.isCellsReloaded else {
+                if (self?.isCellsReloaded ?? true) == false {
                     createEndReloadCatchingTimer()
+                }
+                
+                guard let self = self, isReloadingAnimated == false else {
                     return
                 }
+                
+                isReloadingAnimated = true
                 
                 self.reloadAnimator!.handleCellsAnimation { [weak self] in
                     guard let self = self else { return }
@@ -283,6 +286,8 @@ private extension GCManager {
                 }
             }
         }
+        
+        collectionView.alpha = 0
         createEndReloadCatchingTimer()
     }
     
