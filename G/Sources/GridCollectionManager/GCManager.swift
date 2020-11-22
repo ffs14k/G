@@ -263,18 +263,22 @@ private extension GCManager {
     
     private func reloadDataAnimated() {
         
+        if collectionView.window == nil {
+            return
+        }
+        
         var isReloadingAnimated = false
         
         func createEndReloadCatchingTimer() {
             Timer.scheduledTimer(withTimeInterval: 1 / 24, repeats: false) { [weak self] _ in
-                if (self?.isCellsReloaded ?? true) == false {
-                    createEndReloadCatchingTimer()
-                }
+                guard let self = self else { return }
                 
-                guard let self = self, isReloadingAnimated == false else {
+                if !self.isCellsReloaded {
+                    createEndReloadCatchingTimer()
                     return
                 }
                 
+                if isReloadingAnimated { return }
                 isReloadingAnimated = true
                 
                 self.reloadAnimator!.handleCellsAnimation { [weak self] in
