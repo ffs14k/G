@@ -171,18 +171,21 @@ public extension GCManager {
         gridSource.reloadData(sections: [])
         collectionView.reloadData()
         
-        guard !sections.isEmpty else {
-            return
-        }
-        
         gridSource.reloadData(sections: sections)
         
         if let animator = animator {
+            if collectionView.window == nil
+                || self.cellsCount(for: 0) ?? 0 == 0 && self.header(for: 0) == nil {
+                return
+            }
+            
             reloadAnimator = animator.animatorManager
             reloadDataAnimated()
-        }
-        
-        UIView.animate(withDuration: 0.01) {
+            
+            UIView.animate(withDuration: 0.01) {
+                self.collectionView.reloadData()
+            }
+        } else {
             self.collectionView.reloadData()
         }
     }
@@ -262,10 +265,6 @@ private extension GCManager {
     }
     
     private func reloadDataAnimated() {
-        
-        if collectionView.window == nil {
-            return
-        }
         
         var isReloadingAnimated = false
         
