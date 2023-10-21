@@ -18,17 +18,16 @@ struct TitleCellModel {
 ```
 
 ```
-import UIKit
 import G
+import UIKit
 
 final class TitleTableCell: UITableViewCell {
-    var gtcModel: GTCellModel<TitleTableCell>?
+    var gtcModel: GTCellModel<TitleTableCell>? // <- GTCSetupable.swift
     
     @objc final func tapAction() {
         gtcModel?.model.action(gtcModel!.indexPath)
     }
 }
-
 
 // MARK: - GTCSetupable
 extension TitleTableCell: GTCSetupable {
