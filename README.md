@@ -9,6 +9,7 @@ Table / Collection DataSource generic wrapper
 ![demo1](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcjRxenhvZXJ5Mnc3bDF5YjZ1eGx2Znc1NGdkNnk1ZGs1NnloMnAweSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/vfEmYmH2FOhTTuelHd/giphy.gif)
 
 
+Model
 ```
 struct TitleCellModel {
     let title: String
@@ -17,6 +18,7 @@ struct TitleCellModel {
 }
 ```
 
+Cell
 ```
 import G
 import UIKit
@@ -28,7 +30,6 @@ final class TitleTableCell: UITableViewCell {
         gtcModel?.model.action(gtcModel!.indexPath)
     }
 }
-
 // MARK: - GTCSetupable
 extension TitleTableCell: GTCSetupable {
     
@@ -48,7 +49,15 @@ extension TitleTableCell: GTCSetupable {
 }
 ```
 
+Creating cell models and push to grid manager. Grid manager itself have a reference on UITableView / UICollectionView and accept delegate / other events.
 ```swift
+func createCell(..
+    return indexes.map { (index) -> GTCellModel<TitleTableCell>  in
+        let model = TitleCellModel(title: text + " \(index)", color: randomColor, action: action)
+        return TitleTableCell.build(model: model)
+    }
+) -> GTCellModel<TitleTableCell>
+
 let cells = self.createCells(text: "Created at index", indexes: Array(0..<10))
 let section = GridSection(header: nil, items: cells, footer: nil)
 self.view?.gridManager.reloadData(section: section, animator: .fade())
