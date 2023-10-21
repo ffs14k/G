@@ -10,7 +10,7 @@ Table / Collection DataSource generic wrapper
 
 
 Model
-```
+```swift
 struct TitleCellModel {
     let title: String
     let color: UIColor
@@ -19,7 +19,7 @@ struct TitleCellModel {
 ```
 
 Cell
-```
+```swift
 import G
 import UIKit
 
@@ -52,6 +52,9 @@ extension TitleTableCell: GTCSetupable {
 Creating cell models and push to grid manager. Grid manager itself have a reference on UITableView / UICollectionView and accept delegate / other events.
 ```swift
 func createCell(..
+    let action: (IndexPath) -> Void = { [weak self] indexPath in
+        ...
+    }
     return indexes.map { (index) -> GTCellModel<TitleTableCell>  in
         let model = TitleCellModel(title: text + " \(index)", color: randomColor, action: action)
         return TitleTableCell.build(model: model)
